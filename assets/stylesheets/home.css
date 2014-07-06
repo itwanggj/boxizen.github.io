@@ -2,12 +2,14 @@ body{
 	color:#FFF;
 	background-color:#1F1F1F;
 }
-header{
-	padding-top:160px;
+.main-content{
+	position: absolute;
+	width:100%;
+	top:50%;
 	text-align: center;
-	color:#F8F8F8;
+	margin-top:-160px;
 }
-header h2{
+.main-content h2{
 	margin-top:5px;
 	padding-bottom:15px;
 }
