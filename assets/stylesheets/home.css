@@ -1,0 +1,58 @@
+body{
+	color:#FFF;
+	background-color:#1F1F1F;
+}
+header{
+	padding-top:160px;
+	text-align: center;
+	color:#F8F8F8;
+}
+header h2{
+	margin-top:5px;
+	padding-bottom:15px;
+}
+.portrait{
+	text-align: center;
+}
+.portrait img{
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	width:150px;
+}
+.portrait img:hover{
+	width:150px;
+	-webkit-box-shadow: 0 0 20px rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);
+	-moz-box-shadow: 0 0 20px rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);
+	box-shadow: 0 0 20px rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);
+}
+.myNav{
+	width:200px;
+	margin:0 auto;
+}
+.myNav ul{
+	list-style-type:none;
+	padding:0;
+}
+.myNav ul li{
+	float:left;
+	padding-left:10px;
+	padding-right:10px;
+}
+.myNav ul li a{
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	transition: .5s;
+	display: block;
+	width:30px;
+	height:30px;
+	border-radius: 15px;
+	text-align: center;
+	line-height: 30px;
+	color:#FFF;
+}
+.myNav ul li a:hover{
+	text-decoration: none;
+	background-color:#FFF;
+	color:#1F1F1F;
+}
