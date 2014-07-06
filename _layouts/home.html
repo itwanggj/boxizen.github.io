@@ -1,3 +1,6 @@
+---
+title : boxiZen's home
+---
 <!DOCTYPE html>
 <html> 
 
@@ -11,33 +14,12 @@
   <link rel="shortcut icon" href="assets/images/profile.ico" >
   <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
   <script src="assets/javascripts/home.js"></script>
-  <title>boxiZen's home</title>
+  <title>{{page.title}}</title>
 </head>
 
 <body>
   <div class="main-content container ">
-       <div class="portrait">
-      <img src="assets/images/portrait2.jpg" alt="boxiZen" class="img-circle"></div>
-    <h2 class="showOff">boxiZen</h2>
-    <p class="showOff">Hi，我是 boxiZen！欢迎来到我的个人主页，这是一个关于我学习与成长的网站。</p>
-    <p class="showOff"> <i>我已经为您提供了下面四个链接:</i>
-    </p>
-    <div class="myNav showOff">
-      <ul>
-        <li>
-          <a href="http://www.boxizen.com">博客</a>
-        </li>
-        <li>
-          <a href="#">笔记</a>
-        </li>
-        <li>
-          <a href="#">生活</a>
-        </li>
-        <li>
-          <a href="#">关于</a>
-        </li>
-      </ul>
-    </div>
+   {{content}}
   </div>
 </body>
 </html>

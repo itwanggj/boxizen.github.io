@@ -15,11 +15,18 @@ body{
 }
 .portrait{
 	text-align: center;
+	display: none;
 }
 .portrait img{
 	-webkit-transition: .5s ease-in-out;
 	-moz-transition: .5s ease-in-out;
 	transition: .5s ease-in-out;
+	width:200px;
+}
+.portrait img.spin{
+	-moz-transform: rotate(360deg); /* FF3.5+ */
+	-o-transform: rotate(360deg); /* Opera 10.5 */
+	-webkit-transform: rotate(360deg); /* Saf3.1+, Chrome */
 	width:150px;
 }
 .portrait img:hover{
@@ -57,4 +64,7 @@ body{
 	text-decoration: none;
 	background-color:#FFF;
 	color:#1F1F1F;
+}
+.showOff{
+	display:none;
 }
