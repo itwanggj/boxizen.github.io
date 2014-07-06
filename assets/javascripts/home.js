@@ -1,8 +1,6 @@
-$(function(){
-	$('img').onload(function(){
-		$(".portrait").fadeIn(1500,function(){
+$(window).load(function(){
+	$(".portrait").fadeIn(1500,function(){
 			$(".portrait img").addClass("spin");
 			$(".showOff").fadeIn(500);
 		});
-	});
 });
