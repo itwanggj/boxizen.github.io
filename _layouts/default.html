@@ -1,1 +1,11 @@
-{{content}}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>{% if page.title %}{{ page.title }}{% endif %} </title>
+		<link rel="stylesheet" href="/css/custom.css" type="text/css" />
+	</head>
+	<body>
+		{{ content }}
+	</body>
+</html>

@@ -9,27 +9,123 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/assets/stylesheets/main.css">
   <link rel="shortcut icon" href="/assets/images/profile.ico" 
   <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
-  <title>boxiZen's notebook | 学习成长的笔记</title>
+<title>boxiZen's notebook | 学习成长的笔记</title>
 
 <body>
 <div class="col-sm-3 hidden-xs left-col">
   <div id="header">
-    <img src="/assets/images/portrait.jpg" alt="boxiZen" class="img-circle">
-    <h3>boxiZen 的笔记本</h3>
+    <a href="/notebook">
+      <img src="/assets/images/portrait.jpg" alt="boxiZen" class="img-circle"></a>
+    <h4>boxiZen 的笔记本</h4>
   </div>
-  <div id="category">
-    <h4>Category</h4>
-    <ul>
-      //这里使用了 jekyll 语法，会被编译，所以加多个"\"
-    {\% for category in site.categories %\}
-      <li>
-        <a href="/categories/{\{ category | first }\}/" title="view all
-posts">{\{ category | first }\} {\{ category | last | size }\}</a>
-      </li>
-      {\% endfor %\}
-    </ul>
-  </div>
+<!-- 遍历整个网站的分类  -->
+<div id="category">
+  <ul>
+    
+    <li>
+      <a href="/categories/java/" title="view all posts">java (1)</a>
+    </li>
+    
+    <li>
+      <a href="/categories/javascript/" title="view all posts">javascript (1)</a>
+    </li>
+    
+    <li>
+      <a href="/categories/linux/" title="view all posts">linux (1)</a>
+    </li>
+    
+    <li>
+      <a href="/categories/server/" title="view all posts">server (1)</a>
+    </li>
+    
+    <li>
+      <a href="/categories/algorithm/" title="view all posts">algorithm (1)</a>
+    </li>
+    
+    <li>
+      <a href="/categories/design pattern/" title="view all posts">design pattern (1)</a>
+    </li>
+    
+  </ul>
 </div>
-<div class="col-sm-9 right-col"></div>
+<!-- 遍历某个分类下面的文章  -->
+<!-- <ul class="posts">
+
+</ul>
+-->
+<div id="footer">
+<a href="/">Back To Home</a>
+</div>
+</div>
+<div class="col-sm-9 right-col">
+<div id="content-list">
+<div class="content-title">
+  <h1>全部笔记</h1>
+</div>
+<ul>
+
+<li>
+  <div class="pull-left list-item" >
+  <a href="/design%20pattern/2014/07/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html">设计模式文章示例 &raquo;</a>
+  <span class="post-detail"><i class="glyphicon glyphicon-calendar"></i> 2014-07-04&nbsp;&nbsp;<i class="glyphicon glyphicon-tags"></i> Design Pattern&nbsp;&nbsp;<i class="glyphicon glyphicon-book"></i> </span>
+  </div>
+  <!-- <div class="pull-right">
+    <i class="glyphicon glyphicon-chevron-right"></i>
+  </div> -->
+</li>
+
+<li>
+  <div class="pull-left list-item" >
+  <a href="/algorithm/2014/07/04/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90.html">算法分析文章示例 &raquo;</a>
+  <span class="post-detail"><i class="glyphicon glyphicon-calendar"></i> 2014-07-04&nbsp;&nbsp;<i class="glyphicon glyphicon-tags"></i> Algorithm&nbsp;&nbsp;<i class="glyphicon glyphicon-book"></i> </span>
+  </div>
+  <!-- <div class="pull-right">
+    <i class="glyphicon glyphicon-chevron-right"></i>
+  </div> -->
+</li>
+
+<li>
+  <div class="pull-left list-item" >
+  <a href="/server/2014/07/04/%E6%9C%8D%E5%8A%A1%E5%99%A8.html">服务器文章示例 &raquo;</a>
+  <span class="post-detail"><i class="glyphicon glyphicon-calendar"></i> 2014-07-04&nbsp;&nbsp;<i class="glyphicon glyphicon-tags"></i> Server&nbsp;&nbsp;<i class="glyphicon glyphicon-book"></i> </span>
+  </div>
+  <!-- <div class="pull-right">
+    <i class="glyphicon glyphicon-chevron-right"></i>
+  </div> -->
+</li>
+
+<li>
+  <div class="pull-left list-item" >
+  <a href="/linux/2014/07/04/linux.html">Linux文章示例 &raquo;</a>
+  <span class="post-detail"><i class="glyphicon glyphicon-calendar"></i> 2014-07-04&nbsp;&nbsp;<i class="glyphicon glyphicon-tags"></i> Linux&nbsp;&nbsp;<i class="glyphicon glyphicon-book"></i> </span>
+  </div>
+  <!-- <div class="pull-right">
+    <i class="glyphicon glyphicon-chevron-right"></i>
+  </div> -->
+</li>
+
+<li>
+  <div class="pull-left list-item" >
+  <a href="/javascript/2014/07/04/javascription.html">JavaScript文章示例 &raquo;</a>
+  <span class="post-detail"><i class="glyphicon glyphicon-calendar"></i> 2014-07-04&nbsp;&nbsp;<i class="glyphicon glyphicon-tags"></i> JavaScript&nbsp;&nbsp;<i class="glyphicon glyphicon-book"></i> </span>
+  </div>
+  <!-- <div class="pull-right">
+    <i class="glyphicon glyphicon-chevron-right"></i>
+  </div> -->
+</li>
+
+<li>
+  <div class="pull-left list-item" >
+  <a href="/java/2014/07/04/java.html">Java文章示例 &raquo;</a>
+  <span class="post-detail"><i class="glyphicon glyphicon-calendar"></i> 2014-07-04&nbsp;&nbsp;<i class="glyphicon glyphicon-tags"></i> java&nbsp;&nbsp;<i class="glyphicon glyphicon-book"></i> java学习笔记记</span>
+  </div>
+  <!-- <div class="pull-right">
+    <i class="glyphicon glyphicon-chevron-right"></i>
+  </div> -->
+</li>
+
+</ul>
+</div>
+</div>
 </body>
 </html>
