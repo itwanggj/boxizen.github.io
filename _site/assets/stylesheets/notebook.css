@@ -11,6 +11,10 @@ html,body{
 	height:100%;
 	min-height:500px;
 	background:#3C464D;
+	transition:all .5s ease-in-out;
+}
+.left-col.hides{
+	left:-20%;
 }
 #header{
 	text-align: center;
@@ -40,7 +44,6 @@ html,body{
 	padding:5px 0px;
 }
 #category ul li a{
-	display:block;
 	color:#FFF;
 }
 #footer{
@@ -53,11 +56,28 @@ html,body{
 #footer a{
 	color:#FFF;
 }
+#foldBtn{
+	position:absolute;
+	top:50%;
+	right:15px;
+	margin-top:-10px;
+	text-align: right;
+}
+#foldBtn a{
+	color:gray;
+}
+#foldBtn a:hover{
+	color:#FFF;
+}
 .right-col{
 	position:absolute;
 	width:77%;
 	min-height: 100%;
 	right:0;
+	transition:0.5s all ease-in-out;
+}
+.right-col.foldOut{
+	width:97%;
 }
 #content-list{
 	padding:20px 40px 50px 40px;
