@@ -109,17 +109,14 @@ JavaScript规定每一个构造函数都有一个prototype属性，指向另一�
 
 #### *2. 验证方法*
 JavaScript中提供了一些辅助方法验证Prototype属性，如下:
-##### **isPrototypeOf()**
->用来判断某个prototype对象与某个实例之间练习
->>alert(Person.prototypeOf(person1)); //true
+##### **isPrototypeOf() : 用来判断某个prototype对象与某个实例之间练习**
+>alert(Person.prototypeOf(person1)); //true
 
-##### **hasOwnProperty()**
->用来判断是否本地属性
->>alert(person1.hasOwnProperty('sayName')); //false
+##### **hasOwnProperty() : 用来判断是否本地属性**
+>alert(person1.hasOwnProperty('sayName')); //false
 
-##### **in运算符**
->用来判断是否含有某方法或属性
->>alert('sayName' in person1); //true
+##### **in运算符 : 用来判断是否含有某方法或属性**
+>alert('sayName' in person1); //true
 
 
 ###  本节完，未完待续
