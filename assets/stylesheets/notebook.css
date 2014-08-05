@@ -134,7 +134,7 @@ html,body{
 	color:#FFF;
 	opacity:1;
 }
-@media screen and (max-width:500px){
+@media screen and (max-width:600px){
 	.left-col{
 		display:none;
 	}
