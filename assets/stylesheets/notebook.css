@@ -8,8 +8,7 @@ html,body{
 	top:0;
 	bottom:0;
 	width:23%;
-	height:100%;
-	min-height:500px;
+	/* min-height:500px; */
 	background:#3C464D;
 	opacity:0.9;
 	transition:all .5s ease-in-out;
@@ -28,7 +27,8 @@ html,body{
 	-webkit-transition: .5s ease-in-out;
 	-moz-transition: .5s ease-in-out;
 	transition: .5s ease-in-out;
-	width:120px;
+	width:35%;
+	min-width:100px;
 }
 #header img:hover{
 	-webkit-box-shadow: 0 0 20px rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);
