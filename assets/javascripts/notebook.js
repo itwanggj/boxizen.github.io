@@ -1,4 +1,14 @@
 $(function(){
+	/*监听滚动条*/
+	$(document).scroll(function(){
+		if($(document).scrollTop()>400){
+			$('.backToTop').css("display","block");
+		}
+		else{
+			$('.backToTop').css("display","none");
+		}
+	})
+	/*折叠左侧面板*/	
 	var foldFunction = function(){
 		if($(this).hasClass('foldOut')){
 			$(this).removeClass('foldOut');
@@ -16,4 +26,5 @@ $(function(){
 		}
 	}
 	$('#foldBtn').click(foldFunction);
+	
 });
