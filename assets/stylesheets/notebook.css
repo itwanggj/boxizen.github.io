@@ -134,3 +134,11 @@ html,body{
 	color:#FFF;
 	opacity:1;
 }
+@media screen and (max-width:500px){
+	.left-col{
+		display:none;
+	}
+	.right-col{
+		width:100%;
+	}
+}
