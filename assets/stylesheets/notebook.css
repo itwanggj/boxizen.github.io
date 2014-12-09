@@ -82,6 +82,9 @@ html,body{
 	color:#666;
 	font-weight: bold;
 }
+.content-title h1{
+	font-size:30px;
+}
 #content-list ul{
 	list-style-type: none;
 	padding:0;
