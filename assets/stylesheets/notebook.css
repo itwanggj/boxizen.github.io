@@ -227,3 +227,11 @@ blockquote{
 		float:left;
 	}
 }
+
+/* 多说样式表  */
+#ds-thread #ds-reset a{
+	font-size:12px;
+}
+#ds-reset .ds-social-links .ds-service-link{
+	height:6px !important;
+}
