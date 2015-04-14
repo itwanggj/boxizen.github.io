@@ -7,7 +7,7 @@ $(function(){
 			$('.back-to-top').fadeOut(1);
 		}
 	});
-	$('.nav-bar-toggle').click(function(){
+	$('.nav-bar-toggle').bind('click touchstart',function(){
 		if($(this).hasClass('active')){
 			$('.menu').fadeOut(300);
 			$(this).removeClass('active');
@@ -18,19 +18,19 @@ $(function(){
 		}
 		return false;
 	});
-	$(".back-to-down").click(function(){
+	$(".back-to-down").bind('click touchstart',function(){
 		$("html,body").animate({
 			scrollTop:350
 		},200)
 		return false;
 	});
-	$('.back-to-top').click(function(){
+	$('.back-to-top').bind('click touchstart',function(){
 		$("html,body").animate({
 			scrollTop:0
 		},300);
 		return false;
 	});
-	$('.wechat-btn').click(function(){
+	$('.wechat-btn').bind('click touchstart',function(){
 		$('#shadow').fadeIn();
 		$('.wechat').fadeIn();
 		return false;
@@ -39,6 +39,6 @@ $(function(){
 		$('#shadow').fadeOut();
 		$('.wechat').fadeOut();
 	};
-	$('#shadow').click(hideShadow);
-	$('.wechat').click(hideShadow);
+	$('#shadow').bind('click touchstart',hideShadow);
+	$('.wechat').bind('click touchstart',hideShadow);
 });

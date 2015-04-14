@@ -287,6 +287,17 @@ blockquote{
 	margin-left:-23px;
 	font-size:1.125rem;
 }
+.post h3{
+	font-size:1.375rem;
+}
+.post h4{
+	font-size:1.125rem;
+}
+.post p{
+	font-size:1rem;
+	line-height: 1rem;
+}
+
 /*目录结构*/
 .category-title{
 	margin:0;
