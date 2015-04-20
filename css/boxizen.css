@@ -249,8 +249,9 @@ ul.menu li a:hover{
 }
 .copyright p{
 	margin:0pc;
-	font-size:0.875rem;
-	font-family: Arial, 'Microsoft YaHei', sans-serif
+	font-size:0.5rem;
+	font-family: Arial, 'Microsoft YaHei', sans-serif;
+	color:#777575;
 }
 #shadow{
 	position:fixed;
@@ -286,6 +287,9 @@ blockquote{
 	border-left:#ddd 0.4em solid;
 	margin-left:-23px;
 	font-size:1.125rem;
+}
+.post h1,h2,h3,h4,h5,h6,b,strong{
+	color:#3A4145;
 }
 .post h3{
 	font-size:1.375rem;
