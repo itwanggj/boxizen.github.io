@@ -42,7 +42,9 @@ Jekyll的安装非常简单，只需要在命令行中键入<code>gem install je
 
 *2.* <code>jekyll serve</code> 运行jekyll项目，默认端口为4000，可以通过_config.xml修改
 
-*3.* <code>jekyll serve --watch</code> 带监听的运行jekyll项目，可以监听文件修改，相当于是play framework的dev模式
+*3.* {% highlight c %}
+	jekyll serve --watch
+	{% endhighlight %} 带监听的运行jekyll项目，可以监听文件修改，相当于是play framework的dev模式
 
 更多的教程及内容可以点击: [Jekyll官网][jekyll] 获得，祝大家玩得开心，hiahia。
 
