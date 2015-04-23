@@ -2,6 +2,7 @@
 layout: page
 title: 小作品
 permalink: /works/
+id: 2015042302
 ---
 
 <p class="works-introduction">hi, 大家好，欢迎来到本人的站点，下面是本人做过的一些小玩意，大家可以点击下方链接查看噢~</p>

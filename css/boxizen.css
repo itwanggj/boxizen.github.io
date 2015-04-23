@@ -289,6 +289,9 @@ blockquote{
 	margin-left:-23px;
 	font-size:1.125rem;
 }
+.post blockquote p{
+	color:#9B9B9B;
+}
 .post h1,h2,h3,h4,h5,h6,b,strong{
 	color:#3A4145;
 }

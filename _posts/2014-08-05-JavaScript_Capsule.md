@@ -3,6 +3,7 @@ layout : post
 title : JavaScript面向对象编程(一):封装
 category : JavaScript
 tags : JavaScript面向对象 对象 
+id: 2014080501
 ---
 
 > JavaScript是一种基于对象(Object-Based)的语言，在里面我们遇到的许多东西都是对象，它们通常是以键值对的形式存在。

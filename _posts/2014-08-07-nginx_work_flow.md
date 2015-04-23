@@ -3,6 +3,7 @@ layout : post
 title : nginx web服务器初识
 category : 服务器
 tags : 服务器 nginx
+id: 2014080701
 ---
 
 > 作为一款处理多并发且具备高性能的Web服务器, nginx被越来越多地应用到各种企业中.

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: category
 title: 目录
 permalink: /categories/
 ---
