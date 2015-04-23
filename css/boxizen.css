@@ -210,6 +210,7 @@ ul.menu li a:hover{
 	border:1px solid #FFF;
 	transition: opacity .3s ease-in-out;
 	opacity:0.8;
+	z-index:20;
 }
 .back-to-top i{
 	font-size:1.25rem;
@@ -332,4 +333,8 @@ blockquote{
 }
 .works-description{
 	font-size:0.875rem         ;
+}
+/* 多说评论框  */
+#ds-thread #ds-reset .ds-post-button{
+	background:#262635;
 }
