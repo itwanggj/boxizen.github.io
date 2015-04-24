@@ -38,13 +38,12 @@ id: 2015042400
 
 参数:
 
-<pre><code>
--f Fork into background after authentication/后台认证用户密码，常与-N连用，不用登陆远程主机
--N Do not execute a shell or command/不执行脚本或命令，常与-f连用
--L port:host:hostport/将本地端口转发到远程指定机器的指定端口
--R port:host:hostport/将远程端口转发到本地机器的指定端口
--C Enable compression/压缩数据
-</code></pre>
+1. -f 后台认证用户密码，常与-N连用，不用登陆远程主机
+2. -N 不执行脚本或命令，常与-f连用
+3. -L 将本地端口转发到远程指定机器的指定端口
+4. -R 将远程端口转发到本地机器的指定端口
+5. -C 压缩数据
+
 
 ### **二、内网穿透**
 
