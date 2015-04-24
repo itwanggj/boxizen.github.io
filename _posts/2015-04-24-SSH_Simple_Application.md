@@ -73,13 +73,3 @@ id: 2015042400
 而对于内网穿透，本人更多的是因开发调试而用，这样就可以将内网的机器公开到外网中，即使没有公网IP，外围的设备仍然可以访问到这台机器，这对于校园网或是小区网络内的机器而言经常受用。
 
 本篇文章讲述的SSH使用主要是针对Linux系统，对于Windows系统如果想要使用SSH服务，可以利用putty这款软件，有时间我会把Windows下使用SSH服务做一次总结与分享。
-
-{% highlight c %}
-/* hello world demo */
-#include <stdio.h>
-int main(int argc, char **argv)
-{
-    printf("Hello, World!\n");
-    return 0;
-}
-{% endhighlight %}
