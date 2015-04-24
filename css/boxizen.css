@@ -339,3 +339,7 @@ blockquote{
 #ds-thread #ds-reset .ds-post-button{
 	background:#262635;
 }
+/* 代码高亮  */
+pre,pre code{
+	background:#262635;
+}
