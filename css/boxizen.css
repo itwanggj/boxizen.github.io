@@ -344,3 +344,11 @@ pre,pre code{
 	background:#262635;
 	color:#FFF;
 }
+/* 列表  */
+li{
+	font-size:1rem;
+}
+img{
+	display:block;
+	margin:0 auto;
+}
