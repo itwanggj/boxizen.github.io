@@ -263,7 +263,7 @@ ul.menu li a:hover{
 	height:100%;
 	background:#000;
 	opacity:0.8;
-	z-index:1;
+	z-index:5;
 	display: none;
 }
 .wechat{
@@ -273,7 +273,7 @@ ul.menu li a:hover{
 	left:50%;
 	top:40px;
 	margin-left:-200px;
-	z-index:2; 
+	z-index:10; 
 }
 .wechat img{
 	width:400px;
