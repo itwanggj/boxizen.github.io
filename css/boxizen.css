@@ -21,15 +21,6 @@ a:hover{
 	color:#2a7ae2;
 	text-decoration: none;
 }
-ul{
-	margin:0;
-	padding:0;
-}
-ul li{
-	list-style-type: none;
-	margin:0;
-	padding:0;
-}
 /*iconfont图标*/
 @font-face {font-family: 'iconfont';
     src: url('/font/iconfont.eot'); /* IE9*/
@@ -231,6 +222,7 @@ ul.menu li a:hover{
   width: 100px;
   height:120px;
   text-align: center;
+  list-style-type: none;
 }
 .icon_lists .icon{
   font-size: 42px;
@@ -297,16 +289,22 @@ blockquote{
 .post h1,h2,h3,h4,h5,h6,b,strong{
 	color:#3A4145;
 }
-.post h3{
+.post h1{
+	font-size:1.8rem;
+}
+.post h2{
 	font-size:1.375rem;
 }
+.post h3{
+	font-size:1.1rem;
+}
 .post h4{
-	font-size:1.125rem;
+	font-size:0.9rem;
 }
 .post p{
 	font-size:1rem;
-	line-height: 1.5rem;
-	color:#3C3B3B;
+	line-height: 1.7rem;
+	color:#808080;
 }
 
 /*目录结构*/
@@ -341,8 +339,11 @@ blockquote{
 }
 /* 代码高亮  */
 pre,pre code{
-	background:#262635;
-	color:#FFF;
+	font-family: inherit;
+	font-size: 0.9rem;
+	line-height:1.5rem;
+	background: #000;
+	color: #FFF;
 }
 /* 列表  */
 li{
