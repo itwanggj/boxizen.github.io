@@ -75,6 +75,7 @@ ul.menu{
 	list-style-type: none;
 	overflow: hidden;
 	display:none;
+	margin: 0px;
 }
 ul.menu li a{
 	display: block;
