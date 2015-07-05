@@ -6,181 +6,210 @@ tags : ios 苹果
 id: 2015070401
 ---
 
->苹果的证书多样纷杂，且打包审核的过程严格复杂，各种身份验证，证书验证的操作相信已经把许多人搞晕，包括本人在内，最近一个项目需要打包上线，却因为这些非技术问题而把原计划拖延许久。看来记录笔记刻不容缓。
+>苹果的证书多样纷杂，且打包审核的过程严格复杂，各种身份验证，证书验证的操作相信已经把许多人搞晕，包括本人在内，最近一个项目需要打包上线，却因为这些非技术问题而把原计划拖延许久。看来记录笔记刻不容缓。(**多图慎点**)
 
-## <a name="profile" id="profile">1. node.js</a>
-在node.js出现以前, javascript大部分依赖于浏览器而执行。 由于javascript是一种脚本语言, 它的执行必须得依赖于一个解析器, 谷歌Chrome浏览器为例, 该解析器即为V8引擎。而node正是将V8引擎作为自己的javascript解析器, 使得javascript可以脱离浏览器而单独运行。
-
-node的出现使得javascript可以在服务器端运行, 同时也推动了前端工程师向全端工程师进阶的过程, 这可是件非常酷炫的事情啊。
-
-## <a name="module" id="module">2. 模块机制</a>
-node.js使用CMD模块系统，主程序作为程序入口点，所有的模块只在执行过程中初始化一次，初始化后的模块对象会被缓存起来以重复利用。
-
-### **2.1 模块引用**
-require用于在当前模块中引入其他模块，传入一个模块名，返回一个模块导出对象，模块路径可以使用相对路径(./)，也可以使用绝对路径(/../)，模块后面的".js"可以省略，如下:
-
-	var foo1 = require('./foo.js');
-	var foo2 = require('./foo');
-
-同时require可以引入一个json文件，此时后面的".json"不可省略，如下:
-
-	var data = require('./data.json');
-
-### **2.2 模块定义**
-exports对象用于导出当前模块的变量与方法，而且它是唯一导出的出口，对应于require方法。
-
-	//math.js
-	exports.add = function() {
-		var sum = 0,
-			i = 0,
-			args = arguments,
-			l = args.length;
-		while(i < l) {
-			sum += args[i++];
-		}
-		return sum;
+<style>
+	img{
+		display:block;
+		margin-top:10px;
+		margin-bottom: 10px;
+		border: 1px solid #CBCACA;
 	}
+	.content{
+		position:fixed;
+		left: 90%;
+		top: 200px;
+		margin: 0px;
+		display: none;
+	}
+	.content li{
+		list-style-type: none;
+	}
+	.content li a{
+		font-size: 0.5rem;
+	}
+	.content li a.active{
+		font-size: 0.9rem;
+		font-weight: bold;
+		color: #2a7ae2;
+	}	
+</style>
 
-### **2.3 二进制模块**
-node.js中模块可分为两类，一种是核心模块，是已经编译好的二进制模块；而另外一种则是文件模块，指的是用户所编写的模块，这里大概列出几种常用的核心模块。
-	
-#### **2.3.1 stdio**
+<ul class="content">
+	<li><a href="#csr" class="csr">生成CSR文件</a></li>
+	<li><a href="#certificate" class="certificate">创建开发者证书</a></li>
+	<li><a href="#appid" class="appid">创建App ID</a></li>
+	<li><a href="#notification" class="notification">主动推送</a></li>
+	<li><a href="#p12" class="p12">生成p12文件</a></li>
+	<li><a href="#provision" class="provision">导出provision</a></li>
+	<li><a href="#packet" class="packet">Xcode打包ipa</a></li>
+</ul>
 
-console模块是node.js提供的核心模块，提供了基本的输出功能。
+### <a name="csr" id="csr">1. 生成CSR文件</a>
 
-	console.log()        // 控制台输出日志文件
-	console.dir(object)  // 输出对象分析    
+CSR文件，全称CertificateSigningRequest，由本地生成，为请求苹果开发证书所用，操作流程如下：
 
-#### **2.3.2 URL与QueryString**
+在spotlight中搜索keychain,默认是第一条记录，点击打开钥匙串访问:
+<img src="/img/posts/apple/spotlight.png" alt="spotlight"/>
 
-	url.parse(url,qs,sl)   // 将url解析为一个对象，其中包含host,hostname,port等字段，若qs为true，则调用querystring解析查询串	
-	querystring.parse(str) // 解析查询串为对象
+在钥匙串访问中选：择证书助理 －> 从证书颁发机构请求证书:
+<img src="/img/posts/apple/keychain.png" alt="钥匙串访问"/>
 
-#### **2.3.3 Stream**
+填写邮箱信息并把CSR文件保存到磁盘:
+<img src="/img/posts/apple/csr.png" alt="CSR文件"/>
 
-Stream是Node实现的一种面向流处理的接口，支持文件流、HTTP数据流、标准IO流等进行抽象操作。
+最终生成如下所示的CSR文件，该文件将用于向苹果开发者后台请求cer证书:
+<img src="/img/posts/apple/csrfile.png" alt="CSR文件" style="width:120px;" />
 
-Stream分为readStream与writeStream两种类型。
+### <a name="certificate" id="certificate">2. 创建开发者证书</a>
 
-#### **2.3.4 http**
+苹果开发者证书分为两种：开发版与发布版，对于仅需要开发测试的应用，可以申请开发版证书，而对于要打包并发布到苹果商城中的应用，则必须选择发布版证书，需要注意的是一个账号只能申请三张发布版的证书，证书的有限性意味着多个苹果应用可能共用一张发布证书。
 
-http协议模块，最重要的模块。
+进入苹果开发者证书管理后台，点击左侧Certificate选项，选择自己需要的证书类型(开发/发布)，如图所示:
 
-	var http = require('http') ;
-	var server = http.createServer(function(req,res){
-	 	res.writeHeader(200,{
-		     'Content-Type' : 'text/plain;charset=utf-8'  // 添加charset=utf-8
-	 	}) ;
-		res.end("Hello,大熊！") ;
-	}) ;
-	server.listen(8888) ;
-	console.log("http server running on port 8888 ...") ;
+<img src="/img/posts/apple/certificate.png" alt="开发证书"/>
 
-## <a name="express" id="express">3. express</a>
+点击右上方"+"创建证书,由于发布证书已达三个数量上限，为了演示方便这里选择了开发版的证书创建:
+<img src="/img/posts/apple/certificate_1.png" alt="开发证书"/>
 
-express是node.js官方指定的web开发框架，为了更快地玩转node.js，决定直接使用express，开启美妙的node.js之旅。
+点击下一步，上传CSR文件，也就是上面我们在本地所创建的文件:
+<img src="/img/posts/apple/certificate_2.png" alt="开发证书"/>
 
-### **3.1 安装**
+上传完成后可获得开发者证书，下载该证书并双击添加到本地证书中:
+<img src="/img/posts/apple/certificate_3.png" alt="开发证书"/>
 
-安装过程中需要注意的是要额外再安装express-generator，express 4.x以后的版本express把构建项目的命令独立到了express-generator中，如果不安装则会提示找不到express命令。
+### <a name="appid" id="appid">3. 创建App ID</a>
 
-	npm install express -g
-	npm install express-generator -g
+在Apple Store中，每一个程序应用对应于一个App ID，所以在应用发布前需要在苹果的开发者后台创建一个App ID，流程如下：
 
-### **3.2 使用**
+进入苹果开发者证书管理后台，点击左侧App ID选项，如图所示:
+<img src="/img/posts/apple/appidview.png" alt="App ID界面预览"/>
 
-	express myapp
-	cd myapp && 
-	npm install //安装中间件与依赖包
-	npm run	//运行项目
+点击右上角的“＋”，新建App ID，此处需要注意的就是Bundle ID必须填写完整的包名:
+<img src="/img/posts/apple/appid_create_1.png" alt="App ID界面预览"/>
 
-### **3.3 结构**
+由于我的应用拥有推送的功能，所以需要在下方为Push Notifications打勾:
+<img src="/img/posts/apple/appid_create_2.png" alt="App ID界面预览"/>
 
-express的项目目录结构如下所示:
-<img src="/img/posts/nodeJs/express-tree.png" alt="express目录结构" style="display:block;width:150px;margin:10px;margin-left:0px"/>
+不断下一步之后可完成App ID的创建，由于刚刚激活了主动推送的功能，所以这里还需要完成配置的操作，在App ID列表中点击刚刚创建的App ID，可看到Push Notifications状态如下：
+<img src="/img/posts/apple/push_notification.png" alt="主动推送"/>
 
-**app.js**, 程序启动文件;
-**bin**, 程序执行程序;
-**node_modules**, 存放所有的项目依赖库;
-**package.json**, 项目依赖配置及开发者;
-**public**, 静态文件存放目录;
-**route**, 路由文件;
-**views**, 视图文件存放目录;
+### <a name="notification" id="notification">4. 激活主动推送功能</a>
 
+点击“Edit”对主动推送功能进行激活，如下图所示:
+<img src="/img/posts/apple/push_notification_1.png" alt="主动推送"/>
 
-## <a name="mongodb" id="mongodb">4. mongodb</a>
+点击"create Certificate"按钮，上传我们在第一步中所创建的CSR文件:
+<img src="/img/posts/apple/push_notification_2.png" alt="主动推送"/>
 
-### **4.1 认识mongodb**
+不断下一步以完成了推送功能的配置，这时候可将推送功能的证书notification_push.cer下载到本地，如下图：
+<img src="/img/posts/apple/push_notification_3.png" alt="主动推送"/>
 
-mongodb是面向文档(document-oriented)的数据库系统(Nosql的一种)，其层次关系为:database -> collection -> document -> field(key：value)，其中collection对应与SQL数据库系统中的table，而document则对应于SQL数据库中的row。
+双击程序，将证书安装添加至本地中：
+<img src="/img/posts/apple/push_notification_4.png" alt="主动推送" style="width:120px;"/>
 
-### **4.2 简单使用**
+### <a name="p12" id="p12">5. 导出p12文件</a>
 
-mongodb的安装可参考网络上的各种教程，这里简单介绍其使用。
+每一个带密钥的证书都可以导出p12文件，这是一个加密的文件，只要知道其密码，就可以在其他设备上使用，在钥匙串访问中右键点击刚刚添加的主动推送证书，选择“导出...”
+<img src="/img/posts/apple/push_notification_5.png" alt="p12文件导出"/>
 
-mongodb安装完后可分为两部分：服务器与客户端
+以p12格式进行文件导出:
+<img src="/img/posts/apple/push_notification_6.png" alt="p12文件导出"/>
 
-#### **4.2.1 服务器端**
-启用服务器方法如下：
+输入p12的密码:
+<img src="/img/posts/apple/push_notification_7.png" alt="p12文件导出"/>
 
-	mongod mongod --dbpath /usr/local/data/mongodb --fork --logpath /usr/local/log/mongo.log
+下面就是导出后的文件:
+<img src="/img/posts/apple/push_notification_8.png" alt="p12文件导出" style="width:120px;"/>
 
-其中--dbpath表示指定数据库数据存储目录，--fork表示让数据库服务后台运行，--logpath为制定数据库的日志路径，更多的参数可以通过输入命令mongod --help获得。
+### <a name="provision" id="provision">6. 生成Provisioning Profiles
 
-为了不每次都输出这么长串命令，我使用startmongo简单代替之，如下所示：
+Provisioning Profiles，简称PP文件，该文件将appID，开发者证书，硬件Device绑定在一起，在开发者中心配置好后可以添加到Xcode上，也可以直接在Xcode上连接开发者中心生成，真机调试时需要在PP文件中添加真机的udid，由于此处配置的是发布版本的PP文件，所以没有了添加真机udid这一步骤。
 
-	alias startmongo='sudo mongod --dbpath /usr/local/data/mongodb --fork --logpath /usr/local/log/mongo.log'
+点击开发者中心的Provisioning Profiles，选择Distribution，如下:
+<img src="/img/posts/apple/provision.png" alt="provisioning"/>
 
-把该命令添加进.bashrc或.zshrc中，在终端中输入命令source .zshrc/.bashrc 激活之。
+点击右上方"+",选择自己需要的版本进行配置，由于要在商城发布，这里我选择的是App Store:
+<img src="/img/posts/apple/provision_1.png" alt="provisioning"/>
 
-#### **4.2.2 客户端**
+下一步选择需要配置的AppId:
+<img src="/img/posts/apple/provision_2.png" alt="provisioning"/>
 
-客户端命令如下：
+下一步选择开发证书:
+<img src="/img/posts/apple/provision_3.png" alt="provisioning"/>
 
-	show dbs 	//列出所有数据库
-	use movie 	//创建数据库
-	db.getName() 	//查看数据库
-	db.dropDatabase() 	//删除数据库
-	db.getCollectionNames() 或者 show collections 	//查看集合
-	db.person.insert({name:"boxizen", age:24}) db.person.save({name:"boxizen", age:24})  //添加数据
-	db.person.find() 	//查找数据
-	db.person.find().limit(2) 	//限制为两条记录
-	db.person.remove({"name":"boxizen"}) 	//删除记录
-	db.person.update({"name":"boxizen"},{"age":23}) 	//修改记录 
+填写provision profile的名字，完成配置:
+<img src="/img/posts/apple/provision_4.png" alt="provisioning"/>
 
-## <a name="integration" id="integration">5. 项目整合</a>
+配置成功后下载PP文件,如下图:
+<img src="/img/posts/apple/provision_5.png" alt="provisioning"/>
 
-(文章持续更新中......)
+<img src="/img/posts/apple/provision_6.png" alt="provisioning" style="width:120px;"/>
+
+至此，苹果打包所需的所有证书已经准备完毕。
+
+### <a name="packet" id="packet">6. Xcode打包生成ipa
+
+前序的准备工作上面已经详细介绍，真是呕心沥血啊... 废话少说，直接进入主题
+
+打开Xcode，选择需要打包的项目，然后执行 Product -> Scheme -> Edit Scheme
+<img src="/img/posts/apple/xcode.png" alt="xcode"/>
+
+把Build Configuration改为Release，如下图:
+<img src="/img/posts/apple/xcode_2.png" alt="xcode"/>
+
+完成上述操作后执行 Product -> Archieve
+<img src="/img/posts/apple/xcode_3.png" alt="xcode"/>
+
+选择导出的用途后点击export按钮:
+<img src="/img/posts/apple/xcode_4.png" alt="xcode"/>
+
+在此过程会有一个签名自动验证的过程，此处略过许多坑...历经千辛，排除万难，终于打包成功:
+<img src="/img/posts/apple/xcode_5.png" alt="xcode" style="width:120px;"/>
+
+如果你认为，只要按上述步骤完成就可以成功打包，那真是天真了...在整个过程中可以会遇到许多的问题，这里就不一一描述了，有疑问可留言。
+
+转载请注明出处，谢谢。
 
 <script type="text/javascript">
 	$(function(){
-		var profile = $('#profile').offset().top,
-			module = $('#module').offset().top,
-			express = $('#express').offset().top,
-			mongodb = $('#mongodb').offset().top,
-			integration = $('#integration').offset().top;
-		console.log(express);
+		var csr = $('#csr').offset().top,
+			certificate = $('#certificate').offset().top,
+			appid = $('#appid').offset().top,
+			notification = $('#notification').offset().top,
+			p12 = $('#p12').offset().top,
+			provision = $('#provision').offset().top,
+			packet = $('#packet').offset().top;
+
 		$(window).scroll(function(){
-			if($(window).scrollTop() >= profile && $(window).scrollTop() < module){
+			if($(window).scrollTop() >= csr && $(window).scrollTop() < certificate){
 				$('.content').fadeIn(1);
 				$('.content a').removeClass('active');
-				$('.profile').addClass('active');
+				$('.csr').addClass('active');
 			}
-			else if($(window).scrollTop() >= module && $(window).scrollTop() < express){
+			else if($(window).scrollTop() >= certificate && $(window).scrollTop() < appid){
 				$('.content a').removeClass('active');
-				$('.module').addClass('active');
+				$('.certificate').addClass('active');
 			}
-			else if($(window).scrollTop() >= express && $(window).scrollTop() < mongodb){
+			else if($(window).scrollTop() >= appid && $(window).scrollTop() < notification){
 				$('.content a').removeClass('active');
-				$('.express').addClass('active');
+				$('.appid').addClass('active');
 			}
-			else if($(window).scrollTop() >= mongodb && $(window).scrollTop() < integration){
+			else if($(window).scrollTop() >= notification && $(window).scrollTop() < p12){
 				$('.content a').removeClass('active');
-				$('.mongodb').addClass('active');
+				$('.notification').addClass('active');
 			}
-			else if($(window).scrollTop() >= integration){
+			else if($(window).scrollTop() >= p12 && $(window).scrollTop() < provision){
 				$('.content a').removeClass('active');
-				$('.integration').addClass('active');
+				$('.p12').addClass('active');
+			}
+			else if($(window).scrollTop() >= provision && $(window).scrollTop() < packet){
+				$('.content a').removeClass('active');
+				$('.provision').addClass('active');
+			}
+			else if($(window).scrollTop() >= packet){
+				$('.content a').removeClass('active');
+				$('.packet').addClass('active');
 			}
 			else{			
 				$('.content').fadeOut(1);
