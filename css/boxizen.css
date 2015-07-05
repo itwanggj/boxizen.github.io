@@ -137,7 +137,7 @@ ul.menu li a:hover{
 	padding:10px;
 }
 .post-list li{
-	padding:0.625rem 0 1.25rem 0;
+	padding:0.625rem 0 1rem 0;
 	border-bottom:#EBF2F6 1px solid;
 }
 .post-list .post-meta{
@@ -311,9 +311,15 @@ blockquote{
 /*目录结构*/
 .category-title{
 	margin:0;
+	padding-bottom: 0.625rem;
+	font-weight: bold;
 }
 .arc-list{
 	padding-bottom:1.25rem;
+	margin: 0px;
+}
+.arc-list li{
+	line-height: 2rem;
 }
 
 /*作品页面*/
