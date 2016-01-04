@@ -18,7 +18,7 @@ id: 2015042302
 <section class="works-section">
 <h4 class="works-title"><a href="http://ptbirthday.boxizen.com">2. 佩彤的生日网页</a></h4>
 <a href="http://ptbirthday.boxizen.com"><img src="/img/works/ptbirth.png" alt="佩彤生日网页" /></a>
-<p class="works-description">做给女朋友的生日祝福o(*￣▽￣*)ブ</p>
+<p class="works-description">做给女朋友的生日祝福o(*￣▽￣*)ブ（刚接触前端时写的小玩意，代码与性能等请忽略.逃~~）</p>
 </section>
 
 <section class="works-section">
