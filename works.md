@@ -35,3 +35,19 @@ id: 2015042302
 <a href="https://github.com/boxizen/webslider"><img src="/img/works/webslider.png" alt="WebSlider" /></a>
 <p class="works-description">本人的毕业设计，获得学院优秀毕业设计称号，采用线下编辑线上播放的模式，支持远程控制同步播放。</p>
 </section>
+
+<section class="works-section">
+<h4 class="works-title"><a href="#">5. 树莓派系列</a></h4>
+<a href="#"><img src="/img/works/rasp.png" alt="树莓派" /></a>
+<p class="works-description">
+	本科毕业时买了一块树莓派，跟着教程捣鼓了很多小东西，如远程摄像头监控实验室的人员情况，把kindle当作树莓派屏幕，玩过
+	GPIO流水灯，最后搭载了一个蜂鸣器被放在宿舍被用作整点报时...
+</p>
+</section>
+
+<section class="works-section">
+<h4 class="works-title"><a href="https://github.com/boxizen/clovefemale">6. 丁香女性助手</a></h4>
+<p class="works-description">
+	研一时接的外包项目，基于微信公众平台开发，为女性提供系列生理与心理服务咨询。
+</p>
+</section>

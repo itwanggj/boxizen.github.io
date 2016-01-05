@@ -416,8 +416,15 @@ strong {
 
 .works-section img {
     display: block;
+    width: 100%;
     margin-bottom: 0.625rem;
     border: 1px solid rgba(0, 0, 0, 0.12)
+}
+
+.works-section img.inline-img {
+    display: inline-block;
+    margin: 0px;
+    width: 30%;
 }
 
 .works-title {
