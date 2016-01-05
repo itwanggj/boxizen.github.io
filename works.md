@@ -48,6 +48,6 @@ id: 2015042302
 <section class="works-section">
 <h4 class="works-title"><a href="https://github.com/boxizen/clovefemale">6. 丁香女性助手</a></h4>
 <p class="works-description">
-	研一时接的外包项目，基于微信公众平台开发，为女性提供系列生理与心理服务咨询。
+	研一时接的外包项目，基于微信公众平台，使用Play Framework进行全栈式开发，为女性提供系列生理与心理服务咨询。
 </p>
 </section>
