@@ -33,7 +33,7 @@ id: 2015042302
 <section class="works-section">
 <h4 class="works-title"><a href="https://github.com/boxizen/webslider">4. WebSlider在线幻灯片</a></h4>
 <a href="https://github.com/boxizen/webslider"><img src="/img/works/webslider.png" alt="WebSlider" /></a>
-<p class="works-description">本人的毕业设计，获得学院优秀毕业设计称号，采用线下编辑线上播放的模式，支持远程控制同步播放。</p>
+<p class="works-description">本人的本科毕业设计，获得学院优秀毕业设计称号，采用线下编辑线上播放的模式，支持远程控制同步播放。</p>
 </section>
 
 <section class="works-section">
