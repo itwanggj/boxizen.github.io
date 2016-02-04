@@ -6,11 +6,8 @@ tags : 前端 ES6
 id: 2015120101
 ---
 
-## ECMAScript6简介
 
-2015年6月，ECMASCript6发布，成为JavaScript语言的新一代标准
-
----
+> 2015年6月，ECMASCript6发布，成为JavaScript语言的新一代标准，本文简单总结了其中常用的新特性。
 
 ## 块级绑定
 
@@ -31,7 +28,6 @@ id: 2015120101
 (2) 不允许重复声明
 (3) 一旦声明必须立刻赋值，且不能再改变值
 
----
 
 ## Module
 
@@ -85,6 +81,7 @@ import命令具有提升效果，会提升到整个模块的头部
     import * as circle from './circle';
     console.log("圆面积：" + circle.area(4));
     console.log("圆周长：" + circle.circumference(14));
+
 
 
 > 持续更新，未完待续
