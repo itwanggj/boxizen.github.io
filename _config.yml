@@ -12,7 +12,7 @@ github_username:  boxizen
 
 # Build settings
 # markdown: kramdown
-paginate: 5
+paginate: 10
 paginate_path: "page:num"
 # url链接格式
 permalink: /:year/:month/:day/:title
