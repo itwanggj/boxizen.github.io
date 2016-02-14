@@ -3,3 +3,6 @@ _site
 
 # Mac Os
 .DS_Store
+
+# cache
+.sass-cache
