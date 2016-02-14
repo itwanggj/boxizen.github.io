@@ -17,5 +17,5 @@ paginate_path: "page:num"
 # url链接格式
 permalink: /:year/:month/:day/:title
 #代码高亮
-#highlighter: pygments
+highlighter: pygments
 mardown: redcarpet
