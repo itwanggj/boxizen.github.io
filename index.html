@@ -1,19 +1,15 @@
----
-layout: default-boxizen
----
-
+--- layout: default ---
 <div class="home">
-
-  <ul class="post-list">
-    {% for post in paginator.posts %}
-      <li>
-        <h2 class="post-title">
+    <ul class="post-list">
+        {% for post in paginator.posts %}
+        <li>
+            <h2 class="post-title">
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
-        <article class="post-article">
-          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.excerpt }}</a>
-        </article>
-        <h4>
+            <article class="post-article">
+                <a href="{{ post.url | prepend: site.baseurl }}">{{ post.excerpt }}</a>
+            </article>
+            <h4>
           <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
           <span class="post-tags">
           {% for cg in post.tags %}
@@ -22,19 +18,14 @@ layout: default-boxizen
           {% endfor %}
           </span>
         </h4>
-      </li>
-    {% endfor %}
-  </ul>
-  <div class="pagninator">
-  {% for page in (1..paginator.total_pages) %}
-    {% if page == paginator.page %}
-      <span class="active paginator-btn">{{ page }}</span>
-    {% elsif page == 1 %}
-      <a class="paginator-btn" href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
-    {% else %}
-      <a class="paginator-btn" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
-    {% endif %}
-  {% endfor %}
-  <span class="page-current">&nbsp;&nbsp;Page{{paginator.page}} of {{paginator.total_pages}}</span>
-  </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="pagninator">
+        {% for page in (1..paginator.total_pages) %} {% if page == paginator.page %}
+        <span class="active paginator-btn">{{ page }}</span> {% elsif page == 1 %}
+        <a class="paginator-btn" href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a> {% else %}
+        <a class="paginator-btn" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a> {% endif %} {% endfor %}
+        <span class="page-current">&nbsp;&nbsp;Page{{paginator.page}} of {{paginator.total_pages}}</span>
+    </div>
 </div>

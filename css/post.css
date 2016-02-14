@@ -437,13 +437,16 @@ strong {
 
 
 /* 多说评论框  */
+
 #ds-thread {
     max-width: 100%;
     overflow: hidden;
 }
+
 #ds-thread #ds-reset .ds-post-button {
     background: #262635;
 }
+
 #ds-thread #ds-reset .ds-login-buttons .ds-social-links {
     max-width: 100%;
 }
