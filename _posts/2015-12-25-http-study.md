@@ -302,6 +302,12 @@ HTTP报文由三部分组成：起始行(请求行/响应行)、首部字段、�
 | Set-Cookie |  服务器端返回给客户端存储的Cookie信息  |
 | Cookie     |  客户端向服务器端发送Cookie信息  |
 
+**其他首部字段**
+
+- X-Frame-Options
+- X-XSS-Protection
+- DNT
+- P3P
 
 
 
