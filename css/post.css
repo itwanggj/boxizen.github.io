@@ -77,10 +77,10 @@ a:hover {
     background: #000;
     display: block;
     text-align: center;
-    padding: 0.625rem;
-    width: 2.1875rem;
-    height: 1.875rem;
-    line-height: 1.875rem;
+    padding: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
     opacity: 0.8;
     color: #FFFFFF;
     transition: opacity .3s ease-in-out;
@@ -92,7 +92,7 @@ a:hover {
 }
 
 .nav-bar-toggle i {
-    font-size: 1.5625rem;
+    font-size: 1rem;
 }
 
 ul.menu {
@@ -105,13 +105,12 @@ ul.menu {
 
 ul.menu li a {
     display: block;
-    width: 2.1875rem;
     height: 1.25rem;
     text-decoration: none;
     color: #FFF;
     padding: 0.625rem;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.7rem;
     opacity: 0.8;
 }
 
