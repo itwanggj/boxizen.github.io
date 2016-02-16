@@ -461,7 +461,9 @@ pre code {
     background: #000;
     color: #FFF;
 }
-
+.highlight {
+    background: #000;
+}
 
 /* 列表  */
 
