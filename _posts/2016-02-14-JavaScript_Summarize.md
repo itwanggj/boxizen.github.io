@@ -22,6 +22,8 @@ id: 2016021401
 
 而如果原型对象中的__pro__指向另外一个函数的原型，如此下去，会形成一种链式的结构，也就是**原型链**。
 
+<img src="/img/posts/js_summary/prototype.jpg" alt="原型链">
+
 
 
 
