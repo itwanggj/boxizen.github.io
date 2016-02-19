@@ -14,6 +14,20 @@ id: 2016021401
 	}	
 </style>
 
+<style>
+	table {
+		width: 100%;
+		border: 1px solid #dddddd;
+		border-collapse: collapse;
+		margin-bottom: 20px;
+	}
+	th, td {
+		border: 1px solid #dddddd;
+		padding: 5px;
+		font-size: 0.8rem;
+	}
+</style>
+
 ## 一、作用域和内存管理
 
 ### **作用域&&作用域链**
@@ -74,7 +88,7 @@ JavaScript中最常用的垃圾收集方式为标记清除，当变量进入环�
 
 * (3) 增加了代码的复杂度，不容易维护或调试。
 
-### **内存泄漏**
+
 
 ## 二、面向对象编程
 
@@ -225,4 +239,78 @@ ECMAScript中将原型链作为实现继承的主要方法。其主要思想是�
 	SubType.prototype.sayAge = function() {
 		console.log(this.age);
 	}
+
+
+## 三、BOM和客户端检测
+
+### **BOM**
+
+**(1) location对象**
+
+location饰最有用的BOM对象之一，它提供了与当前窗口中加载的文档有关的信息，还提供了一些导航功能，它既是window对象的属性，也是document对象的属性。
+
+|   属性名    |  例子      |   说明   |
+| :-----------: | :-----------:  |  :-----------:  |
+| hash |  #contents  | 返回URL的hash|
+| host |  www.wrox.com:80  | 返回服务器名和端口号(如果有)|
+| hostname |  www.wrox.com  | 返回不带端口号的服务器名|
+| port |  80 | 返回端口号|
+| href |  http://www.wrox.com  | 返回完成URL，与location.toString()返回值一样|
+| pathname |  /boxizen/  | URL中目录或文件名|
+| protocol |  http:  | 返回URI的协议|
+| search |  ?q=javascript  | 返回查询字符串|
+
+**(2) navigator对象**
+
+|   属性名    |  说明   |
+| :-----------: | :-----------:  |
+| appName|  完整浏览器版本  |
+| userAgent|  浏览器的用户代理字符串  |
+| vendor|  浏览器品牌  |
+| language|  浏览器主语言  |
+| plugins|  浏览器安装的插件信息的数组  |
+| ...|  ...  |
+
+**检测插件**
+
+检测插件(IE无效):
+
+	function hasPlugin(name) {
+		name = name.toLowerCase();
+		for(var i = 0; i < navigator.plugins.length; i++) {
+			if(navigator.plugins[i].name.toLowerCase().indexOf(name) > -1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+检测IE中的插件:
+
+	function hashIEPlugin(name) {
+		try {
+			new ActiveXObject(name);
+			return true;
+		} catch(e) {
+			return false;
+		}
+	}
+
+**(3) history对象**
+
+history对象保存着用户上网的历史记录，从窗口被打开那一刻起算起。
+	
+后退一页
+
+	history.go(-1);
+	history.back();
+
+前进一页
+
+	history.go(1);
+	history.forward();
+
+跳转到历史记录中的某个页面，如果历史记录不包含该字符串，则该方法什么也不做
+
+	history.go('wrox.com');
 

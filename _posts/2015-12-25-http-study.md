@@ -18,6 +18,7 @@ id: 2015122501
 	th, td {
 		border: 1px solid #dddddd;
 		padding: 5px;
+		font-size: 0.8rem;
 	}
 </style>
 
