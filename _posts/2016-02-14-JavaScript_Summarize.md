@@ -332,3 +332,135 @@ history对象保存着用户上网的历史记录，从窗口被打开那一刻�
 用户代理检测的做法是通过**navigator.userAgent**属性得到代理字符串的值，再通过给该值做正则匹配以达到识别客户端浏览器的目的。
 
 ## 四、DOM
+
+DOM(文档对象模型)是针对HTML和XML文档的一个API，它描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。
+
+### **节点层次**
+
+**(1) Node类型**
+
+DOM1级定义了一个Node接口，JavaScript中的所有节点类型都继承于该类型，因此所有节点类型都共享着相同的基本属性和方法，如下所示:
+
+|   属性/方法名    | 说明   |
+| :-----------: | :-----------:  |
+| **childNodes** |   获取第一个子节点|
+| parentNode |  获取父节点|
+| previousSibling |  获取上一个兄弟节点|
+| nextSibling |  获取下一个兄弟节点|
+| hasChildNodes() | 返回是否包含子节点|
+| appendChild() |  在最后插入子节点|
+| replaceChild() | 代替子节点|
+| removeChild() |  删除子节点|
+| insertBefore() | 在特定节点前面插入|
+
+**(2) Document类型**
+
+JavaScript通过Document类型表示文档，Document节点nodeType为**9**, nodeName为**#document**，常见的属性及方法如下:
+
+|   属性/方法名    | 说明   |
+| :-----------: | :-----------:  |
+| body |  指向<body>元素|
+| doctype |  指向<!DOCTYPE>元素|
+| title |  文档标题|
+| url |  文档所在的完整url |
+| referer |  来源页面的URL|
+| getElementById() |  取得id对应的元素|
+| getElementsByTagName() |  取得某个标签的元素集合|
+
+
+**(3) Element类型**
+
+Element类型是Web编程中最常用的类型之一，因为它提供了对元素标签名、子节点及特性的访问，它的nodeType为**1**, nodeName为**元素的标签名**。
+
+* HTML元素
+
+所有HTML元素都由HTMLElement类型表示，HTML元素继承于Element并添加了一些默认属性，因此可以直接访问这些属性，如下所示:
+
+	var div = document.getElementById('myDiv');
+	console.log(div.id);
+	console.log(div.className);
+	console.log(div.title);
+	console.log(div.lang);
+	console.log(div.dir);
+
+* 取得属性
+
+在使用自定义属性的时候，可以通过getAttribute()方法取得该属性的值:
+
+	var div = document.getElementById('myDiv');
+	console.log(div.getAttribute('data-custom'));
+
+* 设置属性
+
+与getAttribute()相对应:
+	
+	div.setAttribute('data-custom', 'hehe');
+
+* attributes属性
+
+常用方法如下:
+
+|   属性/方法名    | 说明   |
+| :-----------: | :-----------:  |
+| getNamedItem(name) |  获得nodeName为name的节点|
+| removeNamedItem(name) |  从属性列表移除nodeName为name的节点|
+| setNamedItem(name) |  添加节点，并以nodeName作为索引|
+| item(pos) |  返回位于数字pos位置处的节点|
+
+	var id = element.attributes.getNamedItem('id').nodeValue;
+	element.attributes[i].nodeName;
+	element.attributes[i].nodeValue;
+
+* 创建元素
+
+使用document.createElement()创建新的元素:
+	
+	var div = document.createElement('div');
+	div.id = 'myDiv';
+	div.className = 'box';
+	document.body.appendChild(div);
+
+**(4) Text类型**
+
+文本节点由Text表示，它的nodeType为**3**, nodeName为**#text**, 创建方法如下:
+
+	var element = document.createElement('div');
+	element.className = 'msg';
+
+	var textNode = document.createTextNode("<strong>hello</stong>");
+	element.appendChild(textNode);
+
+	document.body.append(element);
+	
+**(5) Attr类型**
+
+元素属性在DOM中以Attr类型表示，它的nodeType为**2**，nodeName是**属性的名称**创建方法如下:
+
+	var attr = document.createAttribute('align');
+	attr.value = 'left';
+
+	element.setAttribute(attr);
+	element.getAttribute('align');
+	element.attributes['align'].nodeValue;
+
+**(6) DocumentFragment类型**
+
+在所有的节点类型中，只有DocumentFragment在文档中没有对应的标记。DOM规定DocumentFragment是一种“轻量级文档”，可以包含和控制节点，但却不会像完整的文档那样占用额外的资源。nodeType为**11**, nodeName为**#document-fragment**。
+
+	var fragment = document.createDocumentFragment();
+	var ul = document.getElementById('myList');
+	var li = null;
+
+	for(var i = 0; i < 10; i++) {
+		li = document.createElement('li');
+		li.appendChild(document.createTextNode('Item ' + (i+1)));
+		fragment.appendChild(li);
+	}
+
+	ul.appendChild(fragment);
+
+由此也可以看出，使用DocumentFragment可以减少因频繁插入dom元素而带来的资源消耗，减少了dom结构的重排次数，从而得到了更高效的性能提升。
+
+**(7) 其它类型**
+
+其它类型还包括**Comment类型**、**CDATASelection**和**DocumentType类型**，因使用频率较低，故不做总结。
