@@ -464,3 +464,47 @@ Element类型是Web编程中最常用的类型之一，因为它提供了对元�
 **(7) 其它类型**
 
 其它类型还包括**Comment类型**、**CDATASelection**和**DocumentType类型**，因使用频率较低，故不做总结。
+
+
+### **DOM操作技术**
+
+**(1) 动态脚本**
+
+	function loadScriptString(code) {
+		var script = document.createElement('script');
+		script.type = 'text/javascript';
+		try{
+			script.appendChild(document.createTextNode(code));
+		} catch(ex) {
+			script.text = code;
+		}
+		document.body.appendChild(script);
+	}
+
+**(2) 动态样式**
+
+	function loadStyles(css) {
+		var style = document.createElement('style');
+		style.type = 'text/css';
+		try{
+			style.appendChild(document.createTextNode(css));
+		} catch(ex) {
+			style.styleSheet.cssText = css;
+		}
+		document.getElementsByTagName('head')[0].appendChild(style);
+	}
+
+**(3) 操作表格**
+
+	var table = document.createElement('table');
+	table.border = 1;
+	table.width = '100%';
+
+	var tbody = document.createElement('tbody');
+	table.appendChild(tbody);
+
+	tbody.insertRow(0);
+	tbody.rows[0].insertCell(0);
+	tbody.rows[0].cells[0].appendChild(document.createTextNode('cell 1,1'));
+	tbody.rows[0].insertCell(1);
+	tbody.rows[0].cells[1].appendChild(document.createTextNode('cell 2,1'));
