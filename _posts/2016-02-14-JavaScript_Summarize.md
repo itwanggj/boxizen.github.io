@@ -26,9 +26,14 @@ id: 2016021401
 		padding: 5px;
 		font-size: 0.8rem;
 	}
+	@media screen and (max-width: 1100px) {
+		.content {
+			display: none;
+		}
+	}
 	.content {
 		position: fixed;
-		right: 100px;
+		right: 5%;
 		top: 1.125rem;
 		list-style-type: none;
 		margin: 0;
