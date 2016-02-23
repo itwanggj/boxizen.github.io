@@ -124,10 +124,7 @@ id: 2016021401
 				<a href="#section_5_2">事件处理</a>				
 			</li>
 			<li>
-				<a href="#section_5_3">事件对象</a>				
-			</li>
-			<li>
-				<a href="#section_5_4">事件类型</a>				
+				<a href="#section_5_3">事件对象和类型</a>				
 			</li>
 			<li>
 				<a href="#section_5_5">内存和性能</a>				
@@ -735,6 +732,108 @@ Netscape Communicator团队提出的另一种事件流叫**事件捕获**，它�
 
 <img src="/img/posts/js_summary/event-w3c.png" alt="DOM事件流">
 
+### <a id='section_5_2'>**事件处理程序**</a>
+
+事件是用户或浏览器自身执行的某个动作，而响应某个事件的函数就叫做**事件处理程序(或事件侦听)**。
+
+**(1) HTML事件处理程序**
+
+在HTML中定义的事件处理程序可以包含要执行的具体动作，也可以调用在页面其它地方定义的脚本:
+
+	<script>
+		function showMsg() {
+			console.log('Hello World!');
+		}
+	</script>
+
+	<input type="button" value='Click Me' onclick='showMsg()'>
+
+这种方式有两个缺点，首先是存在**时差问题**, 用户可能会在元素一出现在页面就触发响应的事件，但当时的事件处理程序可能不具备执行条件。另一个缺点是HTML与JavaScript代码**紧密耦合**, 造成维护的困难。
+
+**(2) DOM0级事件处理程序**
+
+通过JavaScript指定事件处理程序就是把一个方法赋值给一个元素的事件处理程序属性。
+
+	<input type="button" value='Click Me' id='btn'>
+
+	<script>
+		var btn = document.getElementById('btn');
+		btn.onclick = function() {
+			console.log(this.id);
+		}
+	</script>
+
+如此处理，事件处理程序在元素的作用域下运行，this就是当前元素，还有一个好处，可以直接给onclick属性赋值为null删除事件处理程序。
+
+**(3) DOM2级事件处理程序**
+
+DOM2级事件处理程序定义了两个方法用于处理指定和删除事件处理程序的操作: **addEventListener**和**removeEventListener**。
+它们都接收三个参数: 时间类型、事件处理方法和一个布尔值(true表示在事件捕获阶段调用事件处理程序，默认为false)。
+
+	<input type="button" value='Click Me' id='btn'>
+
+	<script>
+		var btn = document.getElementById('btn');
+		// 添加第一个事件监听
+		btn.addEventListener('click', function() {
+			console.log('click it!');
+		}, true);		
+		// 添加第二个事件监听
+		var clickEvent = function() {
+			console.log('hehehe');
+		};
+		btn.addEventListener('click', clickEvent, true);
+		// 删除第二个监听事件
+		btn.removeEventListenr('click', clickEvent, true);
+	</script>	
+
+这么做有的好处是可以为一个元素添加**多个事件监听**。
+
+IE不支持addEventListener和removeEventListener两个方法，但是它却实现了类似的两个方法**attachEvent**和**detachEvent**，由于IE8及其更早的版本只支持事件冒泡，所以通过attachEvent添加的事件处理程序都会被添加到冒泡阶段。
+
+	<input type="button" value='Click Me' id='btn'>
+
+	<script>
+		var btn = document.getElementById('btn');
+		var handler = function() {
+			console.log('click');
+		};
+		// 添加事件监听
+		btn.attachEvent('onclick', handler);
+		// 删除监听事件
+		btn.detachEvent('onclick', handler);
+	</script>		
+	
+
+需要注意的是，与DOM0的事件处理程序不同的是，DOM0事件处理程序会在其所属元素的作用域内运行，而在使用attachEvent()情况下，事件处理程序会在全局作用域内运行。并且在使用attachEvent()为某元素添加多个事件的时候，当事件触发时，会以添加事件时**相反的**顺序执行事件处理程序，这一点是跟DOM1事件处理不同的。
+
+**(4) 跨浏览器事件处理程序**
+
+根据上述事件处理程序的特点，可以写出如下兼容各个浏览器的事件处理程序:
+
+	var EventUtil = {
+		addHandler: function(element, type, handler) {
+			if(element.addEventListener) {
+				element.addEventListener(type, handler, false);
+			} else if(element.attachEvent) {
+				element.attachEvent('on'+type, handler);
+			} else {
+				element.['on' + type] = handler;
+			}
+ 		},		
+		removeHandler: fuction(element, type, handler) {
+			if(element.removeListener) {
+				element.removeListener(type, handler, false);
+			} else if(element.detachEvent) {
+				element.detach('on' + type, handler);
+			} else {
+				element['on' + type] = null;
+			}	
+		}
+	}
+
+
+### <a id='section_5_3'>**事件对象&&类型**</a>
 
 <script type='text/javascript'>
 	$(function() {		
