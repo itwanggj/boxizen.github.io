@@ -35,7 +35,7 @@ id: 2015070401
 	}	
 </style>
 
-<ul class="content">
+<!--ul class="content">
 	<li><a href="#csr" class="csr">生成CSR文件</a></li>
 	<li><a href="#certificate" class="certificate">创建开发者证书</a></li>
 	<li><a href="#appid" class="appid">创建App ID</a></li>
@@ -43,7 +43,7 @@ id: 2015070401
 	<li><a href="#p12" class="p12">生成p12文件</a></li>
 	<li><a href="#provision" class="provision">导出provision</a></li>
 	<li><a href="#packet" class="packet">Xcode打包ipa</a></li>
-</ul>
+</ul-->
 
 ### <a name="csr" id="csr">1. 生成CSR文件</a>
 
@@ -171,7 +171,7 @@ Provisioning Profiles，简称PP文件，该文件将appID，开发者证书，�
 
 转载请注明出处，谢谢。
 
-<script type="text/javascript">
+<!--script type="text/javascript">
 	$(function(){
 		var csr = $('#csr').offset().top,
 			certificate = $('#certificate').offset().top,
@@ -216,4 +216,4 @@ Provisioning Profiles，简称PP文件，该文件将appID，开发者证书，�
 			}
 		});
 	});
-</script>
+</script-->

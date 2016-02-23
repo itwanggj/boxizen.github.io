@@ -26,17 +26,106 @@ id: 2016021401
 		padding: 5px;
 		font-size: 0.8rem;
 	}
+	.content {
+		position: fixed;
+		right: 100px;
+		top: 1.125rem;
+		list-style-type: none;
+		margin: 0;
+		width: 150px;
+	}
+	.content.hidden {
+		display: none;
+	}
+	.content li a {
+		font-size: 0.75rem;
+	}
+	.content > a.active {
+		color: blue;
+	}
+	.content li a.collapse-btn {
+		margin-right: 5px;
+		font-size: 0.8rem;
+		font-weight: bold;
+	}
+	.child-content.hidden {
+		display: none;
+	}
+	.content-menu.active {
+		font-weight: bold;
+		color: #2a7ae2;
+	}
 </style>
 
-## 一、作用域和内存管理
+<ul class="content hidden">
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_1" class='content-menu' id='menu_1'>作用域和内存管理</a>
+		<ul class="child-content">
+			<li>
+				<a href="#section_1_1">作用域和作用域链</a>				
+			</li>
+			<li>
+				<a href="#section_1_2">垃圾收集策略</a>				
+			</li>
+			<li>
+				<a href="#section_1_3">闭包</a>				
+			</li>
+		</ul>
+	</li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_2" class='content-menu' id='menu_2'>面向对象编程</a>
+		<ul class="child-content hidden">
+			<li>
+				<a href="#section_2_1">原型和原型链</a>				
+			</li>
+			<li>
+				<a href="#section_2_2">对象创建</a>				
+			</li>
+			<li>
+				<a href="#section_2_3">继承类型</a>				
+			</li>
+		</ul>
+	</li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_3" class='content-menu' id='menu_3'>BOM和客户端检测</a>
+		<ul class="child-content hidden">
+			<li>
+				<a href="#section_3_1">BOM</a>				
+			</li>
+			<li>
+				<a href="#section_3_2">检测插件</a>				
+			</li>
+			<li>
+				<a href="#section_3_3">客户端检测</a>				
+			</li>
+		</ul>
+	</li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_4" class='content-menu' id='menu_4'>DOM及其拓展</a>
+		<ul class="child-content hidden">
+			<li>
+				<a href="#section_4_1">节点层次</a>				
+			</li>
+			<li>
+				<a href="#section_4_2">DOM操作技术</a>				
+			</li>
+			<li>
+				<a href="#section_4_3">DOM扩展</a>				
+			</li>
+		</ul>
+	</li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_5">DOM2和DOM3</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_6">事件机制</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_7">错误处理机制</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_8">JSON和AJAX</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_9">客户端存储</a></li>
+</ul>
 
-### **作用域&&作用域链**
+## <a id='section_1' class='chapter'>一、作用域和内存管理</a>
+
+### <a id='section_1_1'>**作用域&&作用域链**</a>
 
 每一个**执行环境**都有一个与之关联的**变量对象**，环境中定义的变量和函数都保存在这个对象中。
 
 全局函数无法查看局部函数的内部细节，但是局部函数却可以访问上层的执行环境，直至全局执行环境，当需要在局部函数中访问某一属性或方法的时候，如果在当前的变量对象中找不到，就会在上层作用域中查找，直至全局函数，这种组织形式就是**作用域链**。
 
-### **垃圾收集策略**
+### <a id='section_1_2'>**垃圾收集策略**</a>
 
 JavaScript是一门具有自动垃圾回收机制的编程语言，开发人员不必关心内存的分配和回收问题。对于垃圾回收机制的原理很简单，就是找出那些不再继续使用的变量，然后释放其占用的内存即可。
 
@@ -52,7 +141,7 @@ JavaScript中最常用的垃圾收集方式为标记清除，当变量进入环�
 
 这种策略有一个致命的缺点在于，当存在两个变量相互引用时，他们的引用次数将永远不为0，因而其占用的内存永远不会被释放。
 
-### **闭包**
+### <a id='section_1_3'>**闭包**</a>
 
 闭包是指有权访问另一函数作用域中变量和对象的函数，一般表现为函数内部的函数。
 
@@ -90,9 +179,9 @@ JavaScript中最常用的垃圾收集方式为标记清除，当变量进入环�
 
 
 
-## 二、面向对象编程
+## <a id='section_2' class='chapter'>二、面向对象编程</a>
 
-### **原型&&原型链**
+### <a id='section_2_1'>**原型&&原型链**</a>
 
 在JavaScript中，我们创建的所有函数都含有一个**prototype**的属性，这个属性是一个指针，指向一个对象，这个对象就是**原型对象**。原型对象作用是让该函数派生出来的所有实例均能共享其属性和方法。（*注:实例中有**__proto__**属性，该属性指向原型对象，而原型对象中的constuctor属性泽指向原来的函数。*）
 
@@ -101,7 +190,7 @@ JavaScript中最常用的垃圾收集方式为标记清除，当变量进入环�
 
 <!--img src="/img/posts/js_summary/prototype.jpg" alt="原型链"-->
 
-### **对象创建**
+### <a id='section_2_2'>**对象创建**</a>
 
 **(1) 工厂模式** 
 
@@ -170,7 +259,7 @@ JavaScript中最常用的垃圾收集方式为标记清除，当变量进入环�
 
 这是当前在ECMAScript中使用最广泛、认可度最高的一种创建自定义类型的方法。
 
-### 继承类型
+### <a id='section_2_3'>继承类型</a>
 
 继承是面向对象语言中一个最为津津乐道的概念，许多OO语言对支持两种方式的继承：接口继承和实现继承，其中接口继承只继承方法签名，而实现继承则继承实际的方法。由于ECMAScript中没有方法签名，所以只支持实现继承，在ECMAScript中通过**原型链(参考前面)**来实现继承的。
 
@@ -241,9 +330,9 @@ ECMAScript中将原型链作为实现继承的主要方法。其主要思想是�
 	}
 
 
-## 三、BOM和客户端检测
+## <a id='section_3' class='chapter'>三、BOM和客户端检测</a>
 
-### **BOM**
+### <a id='section_3_1'>**BOM**</a>
 
 **(1) location对象**
 
@@ -315,7 +404,7 @@ history对象保存着用户上网的历史记录，从窗口被打开那一刻�
 	history.go('wrox.com');
 
 
-### **客户端检测**
+### <a id='section_3_3'>**客户端检测**</a>
 
 **(1) 能力检测**
 
@@ -331,11 +420,11 @@ history对象保存着用户上网的历史记录，从窗口被打开那一刻�
 
 用户代理检测的做法是通过**navigator.userAgent**属性得到代理字符串的值，再通过给该值做正则匹配以达到识别客户端浏览器的目的。
 
-## 四、DOM
+## <a id='section_4' class='chapter'>四、DOM及其拓展</a>
 
 DOM(文档对象模型)是针对HTML和XML文档的一个API，它描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。
 
-### **节点层次**
+### <a id='section_4_1'>**节点层次**</a>
 
 **(1) Node类型**
 
@@ -466,7 +555,7 @@ Element类型是Web编程中最常用的类型之一，因为它提供了对元�
 其它类型还包括**Comment类型**、**CDATASelection**和**DocumentType类型**，因使用频率较低，故不做总结。
 
 
-### **DOM操作技术**
+### <a id='section_4_2'>**DOM操作技术**</a>
 
 **(1) 动态脚本**
 
@@ -508,3 +597,49 @@ Element类型是Web编程中最常用的类型之一，因为它提供了对元�
 	tbody.rows[0].cells[0].appendChild(document.createTextNode('cell 1,1'));
 	tbody.rows[0].insertCell(1);
 	tbody.rows[0].cells[1].appendChild(document.createTextNode('cell 2,1'));
+
+### <a id='section_4_3'>**DOM扩展**</a>
+
+
+
+## 四、DOM2和DOM3
+
+<script type='text/javascript'>
+	$(function() {		
+		/* 章节数量 */ 
+		var chapterNum = $('.chapter').length;
+
+		/* 监听滚动事件 */
+		$(window).scroll(function() {
+			var scrollTop = $(window).scrollTop();
+			// 判断滚动部分是否超出banner高度
+			if(scrollTop > 350) {
+				$('.content').removeClass('hidden');
+			} else {
+				$('.content').addClass('hidden');
+			}
+			for(var i = 0; i < chapterNum; i++) {
+				var num = parseInt(i) + parseInt(1);
+				var sectionTop = $('#section_'+num).offset().top;
+				if(sectionTop <= scrollTop) {					
+					$('.content-menu').removeClass('active');
+					$('#menu_' + num).addClass('active');
+				}
+			}
+		});		
+		/* 折叠按钮 */
+		$('.collapse-btn').click(function() {
+			var btn = $(this);
+			if(btn.hasClass('opened')) {
+				btn.removeClass('opened');
+				btn.text('+');
+				btn.siblings('.child-content').addClass('hidden');
+			} else {
+                btn.addClass('opened');
+				btn.text('-');
+				btn.siblings('.child-content').removeClass('hidden');
+			}
+			return false;
+		});
+	});
+</script>
