@@ -124,7 +124,7 @@ id: 2016021401
 				<a href="#section_5_2">事件处理</a>				
 			</li>
 			<li>
-				<a href="#section_5_3">事件对象和类型</a>				
+				<a href="#section_5_3">事件对象</a>				
 			</li>
 			<li>
 				<a href="#section_5_5">内存和性能</a>				
@@ -833,7 +833,62 @@ IE不支持addEventListener和removeEventListener两个方法，但是它却实�
 	}
 
 
-### <a id='section_5_3'>**事件对象&&类型**</a>
+### <a id='section_5_3'>**事件对象**</a>
+
+**(1) DOM事件对象**
+
+|   属性/方法    | 类型   | 读/写 | 说明 |
+| :-----------: | :-----------:  | :-----------:  | :-----------:  |
+| bubbles| Boolean| 只读| 表明事件是否冒泡 |
+| cancelable| Boolean| 只读| 表明是否可以取消事件的默认行为 |
+| currentTarget| Element| 只读| 其事件处理程序当前正在处理事件的那个元素 |
+| detail| Integer| 只读| 与事件相关的细节信息 |
+| eventPhase| Integer| 只读| 调用事件处理程序的阶段:1捕获,2:目标,3:冒泡 |
+| preventDefault()| Function| 只读| 取消默认行为，如果cancelable为true，则可调用该方法 |
+| stopPropagation()| Function| 只读| 取消事件的进一步捕获或冒泡，如果bubles为true，则可调用该方法 |
+| target| Element| 只读| 事件的目标 |
+| type| String| 只读| 被触发的事件类型 |
+| ... | ... | ... | ... |
+
+**(2) IE中的事件对象**
+
+|   属性/方法    | 类型   | 读/写 | 说明 |
+| :-----------: | :-----------:  | :-----------:  | :-----------:  |
+| cancelBubble| Boolean| 读/写| 默认为false，但将其设置为true就可以取消事件冒泡,同**stopPropagation()** |
+| returnValue| Boolean| 读/写| 默认为true，但将其设置为false就可以取消默认行为,同**preventDefault()** |
+| srcElement| Element| 只读| 事件的目标,同**target** |
+| type | String| 只读| 被触发的事件类型 |
+
+**(3) 跨浏览器的事件对象**
+
+	var EventUtil = {
+		addHandler: funcrion(element, type, handler) {
+			// 参见上一部分
+		}, 
+		removeHandler: function(element, type, handler) {
+			// 参见上一部分
+		},
+		getEvent: function(event) {
+			return event ? event : window.event;
+		},
+		getTarget: function(event) {
+			return event.target || event.srcElement;
+		},
+		preventDefault: function(event) {
+			if(event.preventDefault) {
+				event.preventDefault();
+			} else {
+				event.returnValue = false;
+			}
+		},
+		stopPropagation: function(event) {
+			if(event.stopPropagation) {
+				event.stopPropagation();
+			} else {
+				event.cancelBubble = true;
+			}
+		}
+	}
 
 <script type='text/javascript'>
 	$(function() {		
