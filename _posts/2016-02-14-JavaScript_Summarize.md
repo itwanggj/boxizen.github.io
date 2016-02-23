@@ -76,8 +76,8 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_2" class='content-menu' id='menu_2'>面向对象编程</a>
-		<ul class="child-content hidden">
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_2" class='content-menu' id='menu_2'>面向对象编程</a>
+		<ul class="child-content">
 			<li>
 				<a href="#section_2_1">原型和原型链</a>				
 			</li>
@@ -89,8 +89,8 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_3" class='content-menu' id='menu_3'>BOM和客户端检测</a>
-		<ul class="child-content hidden">
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_3" class='content-menu' id='menu_3'>BOM和客户端检测</a>
+		<ul class="child-content">
 			<li>
 				<a href="#section_3_1">BOM</a>				
 			</li>
@@ -102,8 +102,8 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_4" class='content-menu' id='menu_4'>DOM及其拓展</a>
-		<ul class="child-content hidden">
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_4" class='content-menu' id='menu_4'>DOM及其拓展</a>
+		<ul class="child-content">
 			<li>
 				<a href="#section_4_1">节点层次</a>				
 			</li>
@@ -115,10 +115,31 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_6">事件机制</a></li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_7">错误处理机制</a></li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_8">JSON和AJAX</a></li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_9">客户端存储</a></li>
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_6">事件机制</a>
+		<ul class="child-content">
+			<li>
+				<a href="#section_5_1">事件流</a>				
+			</li>
+			<li>
+				<a href="#section_5_2">事件处理</a>				
+			</li>
+			<li>
+				<a href="#section_5_3">事件对象</a>				
+			</li>
+			<li>
+				<a href="#section_5_4">事件类型</a>				
+			</li>
+			<li>
+				<a href="#section_5_5">内存和性能</a>				
+			</li>
+			<li>
+				<a href="#section_5_6">模拟事件</a>				
+			</li>
+		</ul>
+	</li>
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_7">错误处理机制</a></li>
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_8">JSON和AJAX</a></li>
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_9">客户端存储</a></li>
 </ul>
 
 ## <a id='section_1' class='chapter'>一、作用域和内存管理</a>
@@ -364,7 +385,7 @@ location饰最有用的BOM对象之一，它提供了与当前窗口中加载的
 | plugins|  浏览器安装的插件信息的数组  |
 | ...|  ...  |
 
-**检测插件**
+### <a id='section_3_2'>**检测插件**</a>
 
 检测插件(IE无效):
 
@@ -690,7 +711,30 @@ H5把**readyState**、**compatMode**和**head**属性添加进标准:
 	// 让元素可见
 	document.forms[0].scrollIntoView();
 
-## 四、DOM2和DOM3
+## <a id='section_5' class='chapter'>五、事件机制</a>
+
+### <a id='section_5_1'>**事件流**</a>
+
+事件流指的是从页面中接收事件的顺序，在IE和Netscape开发团队中提出了差不多完全相反的事件流的概念，其中IE的事件流是**事件冒泡流**, 而Netscape的事件流是**事件捕获流**。
+
+**(1) 事件冒泡**
+
+IE的事件流称为**事件冒泡**，即事件开始时由最具体的元素接收，然后逐级向上传播到较为不具体的节点(文档)。事件接收的顺序如下(以点击页面中某一div为例):
+
+<img src="/img/posts/js_summary/bubble.png" alt="事件冒泡">
+
+**(2) 事件捕获**
+
+Netscape Communicator团队提出的另一种事件流叫**事件捕获**，它的思想是不太具体的节点应该更早接收到事件，而具体的节点应该最后接收到事件，它的用意在于在事件到达预定目标之前捕获它。事件接收顺序如下:
+
+<img src="/img/posts/js_summary/catch.png" alt="事件捕获">
+
+**(3) DOM事件流**
+
+"DOM2级事件"规定的事件流包括三个阶段: 事件捕获阶段、处于目标阶段和事件冒泡阶段。仍以前面简单的HTML页面为例，单击div元素会按照下图所示的顺序触发事件:
+
+<img src="/img/posts/js_summary/event-w3c.png" alt="DOM事件流">
+
 
 <script type='text/javascript'>
 	$(function() {		
