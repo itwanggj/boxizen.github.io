@@ -115,7 +115,6 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_5">DOM2和DOM3</a></li>
 	<li><a href='#' class='collapse-btn'>+</a><a href="#section_6">事件机制</a></li>
 	<li><a href='#' class='collapse-btn'>+</a><a href="#section_7">错误处理机制</a></li>
 	<li><a href='#' class='collapse-btn'>+</a><a href="#section_8">JSON和AJAX</a></li>
@@ -605,7 +604,91 @@ Element类型是Web编程中最常用的类型之一，因为它提供了对元�
 
 ### <a id='section_4_3'>**DOM扩展**</a>
 
+尽管DOM作为API意境非常完善了，但为了实现更多的功能，仍然会有一些标准或专有的扩展。对DOM的主要两个扩展是**Selectors API**和**HTML5**。
 
+**(1) Selectors API**
+
+Selectors API是由W3C发起制定的一个标准，致力于让浏览器原生支持CSS查询。所有实现这一功能的JavaScript库都会写一个基础的CSS解析器，然后再使用已有的DOM方法查询文档并找到匹配的节点。而把这个功能变成原生API后，解析和树查询操作可以在浏览器内部通过编译后的代码完成，极大地改善了性能。
+
+* **querySelector()方法**
+
+接收一个CSS选择符，返回与该模式匹配的第一个元素，如果没有找到匹配的元素，返回null。
+
+	var body = document.querySelector('body');
+
+	var myDIV = document.querySelector('#myDiv');
+
+* **querySelectorAll()方法**
+
+与querySelector()一样，不过返回的是一个NodeList的实例。
+
+	var ems = document.getElementById('myDiv').querySelectorAll('em');
+
+* **matchesSelector()方法**
+
+这个地方接收一个参数，即CSS选择符，如果调用元素与该选择符匹配，返回true；否则，返回false。
+
+	if(document.body.matchesSelector('body.page1')) {
+		// true
+	}
+
+**(2) HTML5**
+
+* **与类相关的扩充**
+
+getElementsByClassName()方法
+
+	// 获得所有类中包含'username'和'current'的元素，类名先后顺序无所谓
+	var name =  document.getElementsByClassName('username current');
+
+* **焦点管理**
+
+H5中添加了DOM焦点的功能，包括**document.activeElement**和**hasFocus()**
+
+	var button = document.getElementById('myBtn');
+	button.focus();
+	console.log(document.activeElement === button); // true
+	console.log(document.hasFocus()); // true
+
+* **HTMLDocument的变化**
+
+H5把**readyState**、**compatMode**和**head**属性添加进标准:
+	
+	// 文档加载进度
+	if(document.readyState == 'complete') {
+		// 文档加载完毕
+	}
+	// 渲染页面模式
+	if(document.compatMode == 'CSS1Compat') {
+		// 标准模式
+	}
+	// 文档头部
+	var head = document.head || document.getElementsByTagName('head')[0];
+
+* **插入标记**
+
+**innerHTML**和**outerHTML**属性，避免了插入元素时频繁创建节点以及处理节点间关系的繁琐步骤，带来了极大的便利，但是需要谨慎其带来的性能消耗问题。
+
+* **其它**
+
+此外H5还添加了字符集属性、自定义属性和scrollIntoView()等dom相关的属性及方法:
+
+	// 字符集
+	console.log(document.charset); //UTF-16
+	document.charset = 'UTF-8';
+
+	// 自定义数据属性
+	<div id='myDiv' data-appId='1234' data-myName='boxizen'></div>
+	var div = document.getElementById('myDiv');
+	// 取得自定义属性值
+	var appId = div.dataset.appId;
+	var myName = div.dataset.myName;
+	// 设置自定义属性值
+	div.dataset.appId = '12345566';
+	div.dataset.myName = 'boxi';
+
+	// 让元素可见
+	document.forms[0].scrollIntoView();
 
 ## 四、DOM2和DOM3
 
