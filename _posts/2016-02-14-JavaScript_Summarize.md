@@ -147,7 +147,17 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_7" class='content-menu' id='menu_7'>JSON和AJAX</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_7" class='content-menu' id='menu_7'>JSON和AJAX</a>
+		<ul class="child-content hidden">
+			<li>
+				<a href="#section_7_1">JSON</a>				
+			</li>
+			<li>
+				<a href="#section_7_2">错误调试</a>				
+			</li>
+		</ul>
+	</li>
+	</li>
 	<li><a href='#' class='collapse-btn'>+</a><a href="#section_8" class='content-menu' id='menu_8'>客户端存储</a></li>
 </ul>
 
@@ -1111,6 +1121,44 @@ JavaScript中处理错误标准的方式。
 	}
 
 	assert(typeof num1 == 'number' && obj1 instanceof Number, '类型错误');
+
+
+## <a id='section_7' class='chapter'>七、JSON和AJAX</a>
+
+### <a id='section_7_1'>**JSON**</a>
+
+曾经有一段时间，XML是互联网上传输结构化数据的事实标准，然而业界一直不乏质疑XML的声音，他们认为XML结构臃肿，操作繁琐，而JSON的出现，让这些开发者看到了更加轻量、操作便捷的数据交换格式，并开始广泛使用这种结构化数据，渐渐地，JSON已经取代了XML，成为时下在互联网上最流行的数据传输格式。
+
+**(1) 语法**
+
+JSON支持**简单值**、**对象**和**数组**三种类型的值:
+	
+	// 简单值
+	"Hello World!"
+
+	// 对象
+	{
+		"name": "boxizen",
+		"age": 24
+	}
+
+	// 数组
+	[
+		{
+			"name": "boxizen",
+			"age": 24
+		},
+		{
+			"name": "Lisi",
+			"age": 42
+		}
+	]
+
+需要注意的是，JSON对象中属性名必须加上双引号。
+
+**(2) 解析与序列化**
+
+JSON对象有两个方法: **stringify()**和**parse()**, 这两个方法分别用于**把JavaScript对象序列化为JSON字符串**和**把JSON字符串解析为JavaScript对象**。
 
 <script type='text/javascript'>
 	$(function() {		
