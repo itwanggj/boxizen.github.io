@@ -153,7 +153,13 @@ id: 2016021401
 				<a href="#section_7_1">JSON</a>				
 			</li>
 			<li>
-				<a href="#section_7_2">错误调试</a>				
+				<a href="#section_7_2">XMLHttpRequest</a>				
+			</li>
+			<li>
+				<a href="#section_7_3">跨域资源共享</a>				
+			</li>
+			<li>
+				<a href="#section_7_4">其他跨域技术</a>				
 			</li>
 		</ul>
 	</li>
@@ -1159,6 +1165,38 @@ JSON支持**简单值**、**对象**和**数组**三种类型的值:
 **(2) 解析与序列化**
 
 JSON对象有两个方法: **stringify()**和**parse()**, 这两个方法分别用于**把JavaScript对象序列化为JSON字符串**和**把JSON字符串解析为JavaScript对象**。
+
+### <a id='section_7_2'>**XMLHttpRequest**</a>
+
+Ajax的技术核心是**XMLHttpRequest**，这是由微软首先引入的一个特性，其他浏览器提供商后来都提供了相同的实现
+
+**(1) XMLHttpRequest创建**
+
+	function createXHR() {
+		var xhr;
+		if(window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		} else if(window.ActiveXObject) {
+			var activexName = [ "MSXML2.XMLHTTP", "Microsoft.XMLHTTP" ]; 
+			for(var i = 0; i < activexName.length; i++) {
+				try {
+					xhr = new ActiveXObject(activexName[i]);
+					if(xhr) {
+						break;
+					}
+				} catch(e) {
+
+				}
+			}
+		}
+
+		return xhr;
+	}
+
+### <a id='section_7_3'>**跨域资源共享**</a>
+
+### <a id='section_7_4'>**其他跨域技术**</a>
+
 
 <script type='text/javascript'>
 	$(function() {		
