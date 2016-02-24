@@ -1170,7 +1170,9 @@ JSON对象有两个方法: **stringify()**和**parse()**, 这两个方法分别�
 
 Ajax的技术核心是**XMLHttpRequest**，这是由微软首先引入的一个特性，其他浏览器提供商后来都提供了相同的实现
 
-**(1) XMLHttpRequest创建**
+**(1) XMLHttpRequest基本用法**
+	
+**XHR创建:**
 
 	function createXHR() {
 		var xhr;
@@ -1192,6 +1194,83 @@ Ajax的技术核心是**XMLHttpRequest**，这是由微软首先引入的一个�
 
 		return xhr;
 	}
+
+
+**get请求:**
+
+	function get() {
+		var req = createXHR();
+		if(req) {
+			req.open("GET", "http://xxxxx", true);
+			req.onreadystatechange = function() {
+				// 0未初始化，1启动，2发送，3接收部分数据，4接收到全部响应数据
+				if(req.readState == 4) {
+					if(req.status == 200) {
+						console.log(req.responseText);
+					} else {
+						alert('error');
+					}
+				}
+			}
+			req.send(null);
+		}
+	}
+
+
+**post请求:**
+
+	function post() {
+		var req = createXHR();
+		if(req) {			
+			req.open('POST', 'http://xxxx', true);
+			req.onreadystatechange = function() {
+				if(req.readyState == 4) {
+					if(req.status == 200) {
+							console.log(req.responseText);
+					} else {
+						alert('error');
+					}
+				}
+			}
+			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			req.send(serialize(form));
+		}
+	}
+
+**(2) XMLHttpRequest扩展**
+
+鉴于XMLHttpRequest已经得到广泛使用，成为了事实标准，W3C也着手制定相应标准以规范其行为，XHR1级把已有的XHR对象的实现细节描述了出来，而XHR2级将继续拓展功能。
+
+**FormData**
+		
+	// 基本使用
+	var data = new FormData();
+	data.append('name', 'boxizen');
+	
+	// 直接传入表单元素
+	var data = new FormData(document.forms[0]);
+
+	// 使用案例
+	....
+	xhr.open('post', 'http://xxxx', true);
+	xhr.send(new FormData(document.forms[0]));
+
+使用FormData的方便之处在于不必明确地在XHR对象上设置请求头部，XHR对象能够识别传入的数据类型是FormData的实例，并配置适当的头部信息。
+
+**超时设定**
+
+IE8为XHR对象添加了timeout属性，表示请求在等待响应多少毫秒后就停止，同时会触发ontimeout事件，而此功能后来也被收入了XHR2级规范中。
+
+	// 使用案例
+	....
+	xhr.open('post', 'http://xxxx', true);
+	// 超时时间设为1秒
+	xhr.timeout = 1000;
+	xhr.ontimeout = function() {
+		alert('timeout');
+	}
+	xhr.send(new FormData(document.forms[0]));	
+
 
 ### <a id='section_7_3'>**跨域资源共享**</a>
 
