@@ -63,8 +63,8 @@ id: 2016021401
 </style>
 
 <ul class="content hidden">
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_1" class='content-menu' id='menu_1'>作用域和内存管理</a>
-		<ul class="child-content">
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_1" class='content-menu' id='menu_1'>作用域和内存管理</a>
+		<ul class="child-content hidden">
 			<li>
 				<a href="#section_1_1">作用域和作用域链</a>				
 			</li>
@@ -76,8 +76,8 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_2" class='content-menu' id='menu_2'>面向对象编程</a>
-		<ul class="child-content">
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_2" class='content-menu' id='menu_2'>面向对象编程</a>
+		<ul class="child-content hidden">
 			<li>
 				<a href="#section_2_1">原型和原型链</a>				
 			</li>
@@ -89,8 +89,8 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_3" class='content-menu' id='menu_3'>BOM和客户端检测</a>
-		<ul class="child-content">
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_3" class='content-menu' id='menu_3'>BOM和客户端检测</a>
+		<ul class="child-content hidden">
 			<li>
 				<a href="#section_3_1">BOM</a>				
 			</li>
@@ -102,8 +102,8 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_4" class='content-menu' id='menu_4'>DOM及其拓展</a>
-		<ul class="child-content">
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_4" class='content-menu' id='menu_4'>DOM及其拓展</a>
+		<ul class="child-content hidden">
 			<li>
 				<a href="#section_4_1">节点层次</a>				
 			</li>
@@ -115,8 +115,8 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_5" class='content-menu' id='menu_5'>事件机制</a>
-		<ul class="child-content">
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_5" class='content-menu' id='menu_5'>事件机制</a>
+		<ul class="child-content hidden">
 			<li>
 				<a href="#section_5_1">事件流模型</a>				
 			</li>
@@ -137,9 +137,18 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_7">错误处理机制</a></li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_8">JSON和AJAX</a></li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_9">客户端存储</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_6" class='content-menu' id='menu_6'>错误处理机制</a>
+		<ul class="child-content hidden">
+			<li>
+				<a href="#section_6_1">错误处理</a>				
+			</li>
+			<li>
+				<a href="#section_6_2">错误调试</a>				
+			</li>
+		</ul>
+	</li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_7" class='content-menu' id='menu_7'>JSON和AJAX</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_8" class='content-menu' id='menu_8'>客户端存储</a></li>
 </ul>
 
 ## <a id='section_1' class='chapter'>一、作用域和内存管理</a>
@@ -978,6 +987,130 @@ IE不支持addEventListener和removeEventListener两个方法，但是它却实�
 	// 触发事件
 	textbox.fireEvent('onkeypress', event);
 
+## <a id='section_6' class='chapter'>六、错误处理机制</a>
+
+### <a id='section_6_1'>**错误处理**</a>
+
+由于JavaScript本身是动态语言，且多年来一直没有固定的开发工具，因此人们普遍认为它是一种最难调试的编程语言，抛出的错误没有上下文信息，让人摸不着头脑，而在ECMAScript3中引入了一套错误处理机制，意在帮助开发者更好地处理错误，更好地避免错误的发生。
+
+ECMA-262定义了如下7种错误:
+
+* Error, 基类型，其他错误类型都继承自该类型。
+
+* EvalError, 在使用eval()函数时发生异常时抛出。
+
+* RangeError, 数值超出相应范围时触发。
+
+* ReferenceError, 在找不到对象的情况下抛出。
+
+* SyntaxError, 语法错误时抛出。
+
+* TypeError, 在执行特定类型操作的时候，变量类型不符合要求时抛出。
+
+* URIError, URI格式错误时抛出。
+
+**(1) try-catch语句**
+
+JavaScript中处理错误标准的方式。
+
+	try{
+		someFunction();
+	} catch(error) {
+		if(error instanceof TypeError) {
+			// 处理类型错误
+		} else if(error instanceof ReferenceError) {
+			// 处理引用错误
+		} else {
+			// 其他类型错误
+		}
+	}
+
+**(2) throw语句**
+
+与try-catch语句相配，用于随时抛出自定义错误。
+
+	function CustomError(message) {
+		this.name = 'CustomError';
+		this.message = message;
+	}
+
+	CustomError.prototype = new Error();
+
+	throw new CustomError('my massage');
+
+**(3) 错误(error)事件**
+
+任何没有通过try-catch处理的错误都会触发window对象的error事件，onerror事件处理程序不会创建event对象，但它接收三个参数: **错误消息**、**错误所在URL**和**错误行号**。
+
+	window.onerror = function(message, url, line) {
+		alert(message);
+		// 阻止浏览器默认行为
+		return false;
+	}
+
+**(4) 错误记录到服务器**
+
+开发Web应用程序过程中一种常见的做法，就是集中保存错误日志，以便找重要错误的原因。而在复杂的程序员，通过把前端JavaScript错误集中汇报给后端也显得同样重要，常见的做法如下:
+
+	function logError(sev, msg) {
+		var img = new Image();
+		img.src = 'log.php?sev=' + encodeURIComponent(sev) + '&msg=' + encodeURIComponent(msg);
+	}
+
+	try{
+		// 可能出错的操作
+	} catch(ex) {
+		logError('nonfatal', ex.message);
+	}
+
+使用Image发送请求的好处有:
+
+* 所有浏览器都支持Image对象，包括那些不支持XMLHttpRequest对象的浏览器
+
+* 可以避免跨域限制。
+
+* 在记录错误过程中出问题的概率比较低。
+
+### <a id='section_6_2'>**错误调试**</a>
+
+**(1) 控制台输出**
+
+主要手段是通过console.log将信息输出至控制台中。
+
+	function log(message) {
+		if(typeof console == 'object') {
+			console.log(message);
+		} else if(typeof opera == 'object') {
+			opera.postError(message);
+		} 
+	}
+	log('error');
+
+**(2) 页面输出**
+
+在页面上直接输出错误信息
+
+	function log(message) {
+		var console = document.getElementById('debuginfo');
+		if(console === null) {
+			console = document.getElementById('div');
+			console.id = 'debuginfo';
+			console.style.border = '1px solid #000';
+			.....
+			document.body.appendChild(console);
+		}
+		console.innerHTML += '<p>' + message + '</p>';
+	}
+
+**(3) 错误抛出**
+
+	function assert(condition, message) {
+		if(!condition) {
+			throw new Error(message);
+		}
+	}
+
+	assert(typeof num1 == 'number' && obj1 instanceof Number, '类型错误');
 
 <script type='text/javascript'>
 	$(function() {		
