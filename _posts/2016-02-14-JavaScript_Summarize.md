@@ -115,7 +115,7 @@ id: 2016021401
 			</li>
 		</ul>
 	</li>
-	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_6">事件机制</a>
+	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_5" class='content-menu' id='menu_5'>事件机制</a>
 		<ul class="child-content">
 			<li>
 				<a href="#section_5_1">事件流模型</a>				
