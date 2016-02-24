@@ -118,7 +118,7 @@ id: 2016021401
 	<li><a href='#' class='collapse-btn opened'>-</a><a href="#section_6">事件机制</a>
 		<ul class="child-content">
 			<li>
-				<a href="#section_5_1">事件流</a>				
+				<a href="#section_5_1">事件流模型</a>				
 			</li>
 			<li>
 				<a href="#section_5_2">事件处理</a>				
@@ -127,10 +127,13 @@ id: 2016021401
 				<a href="#section_5_3">事件对象</a>				
 			</li>
 			<li>
-				<a href="#section_5_5">内存和性能</a>				
+				<a href="#section_5_4">事件类型</a>				
 			</li>
 			<li>
-				<a href="#section_5_6">模拟事件</a>				
+				<a href="#section_5_5">事件代理和委托</a>				
+			</li>
+			<li>
+				<a href="#section_5_6">事件模拟</a>				
 			</li>
 		</ul>
 	</li>
@@ -876,6 +879,7 @@ IE不支持addEventListener和removeEventListener两个方法，但是它却实�
 		},
 		preventDefault: function(event) {
 			if(event.preventDefault) {
+
 				event.preventDefault();
 			} else {
 				event.returnValue = false;
@@ -889,6 +893,91 @@ IE不支持addEventListener和removeEventListener两个方法，但是它却实�
 			}
 		}
 	}
+
+### <a id='section_5_4'>**事件类型**</a>
+
+|   事件    | 类型   | 说明 |
+| :-----------: | :-----------:  | :-----------:  |
+| load | UI | 页面完全加载触发(包括图像、js、css等外部资源)|
+| unload | UI | 文档被卸载后触发(用户从一个页面切换到另一个)|
+| resize | UI | 浏览器窗口大小调整触发|
+| scroll | UI | 滚动条滚动时触发，作用在windows对象上|
+| focus | 焦点 | 元素获得焦点时触发|
+| unfocus | 焦点 | 元素失去焦点时触发|
+| click | 鼠标 | 点击时触发|
+| dblclick | 鼠标 | 双击时触发|
+| mousedown | 鼠标 | 按下鼠标时触发|
+| mouseup | 鼠标 | 释放鼠标时触发|
+| mouseenter | 鼠标 | 鼠标移到特定元素时触发|
+| mouseleave | 鼠标 | 鼠标离开特定元素时触发|
+| mousemove | 鼠标 | 移动鼠标时时触发|
+| mousewheel | 滚轮 | 滚动滚轮时触发|
+| keydown | 键盘 | 用户按下键盘上任意键时触发，返回键盘的代码|
+| keyup | 键盘 | 用户释放键盘上任意键时触发|
+| keypress | 键盘 | 用户按下键盘上任意键时触发，返回ASCII字符|
+| hashchange | HTML5 | hash值改变时触发|
+| orientationchange | 设备 | safari查看模式旋转时触发|
+| deviceorientation | 设备 | 设备方向变化时触发|
+| devicemotion | 设备 | 设备移动时时触发|
+
+### <a id='section_5_5'>**事件代理和委托**</a>
+
+在JavaScript中，添加到页面上事件的数量直接影响页面的整体运行性能，导致这一问题原因主要是，每一个**函数都是对象**，都会占用内存，内存中对象越多，性能就越差。
+
+对“事件处理程序过多”问题的解决方案就是**事件委托**，它利用了**事件冒泡**，达到了只指定一个事件处理程序，就可以管理某一类型的所有事件。
+
+如给某一列表下所以选项添加事件可以这么写:
+
+	var list = document.getElementById('myLinks');
+
+	EventUtil.addHandler(list, 'click', function(event) {
+		event = EventUtil.getEvent(event);
+		var target = EventUtil.getTarget(event);
+
+		switch(target.id) {
+			case 'dosomething':
+				 document.title = "I changed the document's title";
+				 break;
+			case 'gosomewhere':
+				 console.log('go somewhere');
+				 break;
+		    case 'sayhi':
+		    	 console.log('hi');
+		    	 break;
+		}
+	});
+
+使用事件委托/代理的优点主要有:
+
+* 可以大量节省内存占用，减少事件注册，比如在table上代理所有td的click事件，从而提升页面的整体运行性能。
+
+* 可以实现新增子对象时的动态事件绑定，不需要再给新增的元素单独添加事件。
+
+### <a id='section_5_6'>**事件模拟**</a>
+
+**(1) DOM中的事件模拟**
+
+	var btn = document.getElementById('myBtn');
+	// 创建事件对象
+	var event = document.createEvent('MouseEvents');
+	// 初始化事件对象
+	event.initMouseEvent('click', true, true, document.defaultView, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+	// 触发事件
+	btn.dispatchEvent(event);
+
+**(2) IE中的事件模拟**
+
+	var textbox = document.getElementById('myTextBox');
+	// 创建事件对象
+	var event = document.createEventObject();
+	// 初始化事件对象
+	event.altKey = false;
+	event.ctrlKey = false;
+	event.shiftKey = false;
+	event.keyCode = 65;
+	// 触发事件
+	textbox.fireEvent('onkeypress', event);
+
 
 <script type='text/javascript'>
 	$(function() {		
