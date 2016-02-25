@@ -1390,8 +1390,48 @@ IE为实现跨域请求，引入了**XDR**对象，即XDomainRequest, 它与XHR�
 
 使用JSONP一个最大的优点是可以访问服务器端的响应，支持浏览器端和服务器端的双向通信。而它的缺点也是显而易见的:
 
-* JSONP是从其他域中加载代码执行，如果其他域不安全，可能会在响应中夹带一些恶意代码，因此在使用不是你自己运维的web服务时，一定要保证它安全可靠。
+* JSONP是从其他域中加载代码执行，如果其他域不安全，可能会在响应中夹带一些恶意代码，因此在使用不是你自己运维的web服务时，一定要保证它安全可靠
 * 确定JSONP请求是否失败并不容易。
+
+## <a id='section_8' class='chapter'>八、客户端存储</a>
+
+### <a id='section_8_1'>**离线检测**</a>
+
+HTML5中定义了一个**navigator.onLine**属性，用于监测设备是否处理在线状态，为**true**即在线，为**false**即离线。
+
+	if(navigator.onLine) {
+		// 正常工作
+	} else {
+		// 执行离线状态时的任务
+	}
+
+此外，HTML5还定义了两个事件:**online**和**offline**，当网络从离线变为在线或者从在线变为离线时分别触发这两个事件。
+
+	EventUtil.addHandler(window, 'online', function() {
+		alert('online');
+	});
+
+	EventUtil.addHandler(window, 'offline', function() {
+		alert('offline');
+	});
+
+判断应用是否在线一般的做法是，在页面加载后，先通过navigator.onLine取得初始的状态，然后再通过上述两个事件确定网络的变化状态。
+
+### <a id='section_8_2'>**应用缓存**</a>
+
+HTML5的应用缓存(application cache),简称为appcache，是专门为开发离线Web应用设计的，是从浏览器缓存中分出来的一块缓存区。想使用这个缓存保存数据，可以使用一个**描述文件(manifest file)**，列出要下载和缓存的资源。
+
+	CACHE MANIFEST
+	#Comment
+
+	file.js
+	file.css
+
+然后再将描述文件域页面关联起来，可以在<html>中的manifest属性中指定这个文件的路径，这个文件的MIME类型必须是**text/cache-manifest**:
+
+	<html manifest="/offline.manifest">
+
+### <a id='section_8_3'>**客户端存储**</a>
 
 <script type='text/javascript'>
 	$(function() {		
