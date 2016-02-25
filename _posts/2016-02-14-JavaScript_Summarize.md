@@ -6,7 +6,7 @@ tags : JavaScript 前端
 id: 2016021401
 ---
 
-> 本文列举了JavaScript中常见的语言特性，总结并分析了其中的奥妙与原理，以巩固和加深自己对知识的理解。
+> 本文列举了JavaScript中常见的语言特性，总结并分析了其中的奥妙与原理，以巩固和加深自己对知识的理解。转载请注明出处，谢谢。
 
 <style>
 	em {
@@ -164,7 +164,19 @@ id: 2016021401
 		</ul>
 	</li>
 	</li>
-	<li><a href='#' class='collapse-btn'>+</a><a href="#section_8" class='content-menu' id='menu_8'>客户端存储</a></li>
+	<li><a href='#' class='collapse-btn'>+</a><a href="#section_8" class='content-menu' id='menu_8'>客户端存储</a>
+		<ul class="child-content hidden">
+			<li>
+				<a href="#section_8_1">离线检测</a>				
+			</li>
+			<li>
+				<a href="#section_8_2">应用缓存</a>				
+			</li>
+			<li>
+				<a href="#section_8_3">客户端存储</a>				
+			</li>
+		</ul>
+	</li>
 </ul>
 
 ## <a id='section_1' class='chapter'>一、作用域和内存管理</a>
@@ -1274,8 +1286,112 @@ IE8为XHR对象添加了timeout属性，表示请求在等待响应多少毫秒�
 
 ### <a id='section_7_3'>**跨域资源共享**</a>
 
+通过Ajax通信的一个主要限制，来自于跨域安全策略(同源策略)，即XHR对象只能访问同源(相同的协议、相同的域名和相同的端口)下的资源。这种安全策略从一定程度上可以防止恶意行为的出现，但是合理的跨域请求在某些开发场景下却显得格外重要。
+
+为了解决**跨域资源**访问问题，W3C提出了**CORS**的工作草案, 即Cross-Origin Resource Sharing，它的基本思想是通过自定义的HTTP头部让浏览器和服务器进行沟通，从而决定请求或响应是应该成功还是失败的:
+
+	// 客户端发送Origin的请求头
+	Origin: http://bignews.boxizen.com/
+
+	// 服务器通过Access-Control-Allow-Origin请求判断该请求是否被允许, 
+	// 如果回应与Origin值相同的或者是"*"的值，则表示该请求被允许
+	Access-Control-Allow-Origin: http://bignews.boxizen.com/
+
+**(1) IE对CORS的实现**
+
+IE为实现跨域请求，引入了**XDR**对象，即XDomainRequest, 它与XHR不同之处在于:
+
+* cookie不会随请求发送，也不会随响应返回
+* 只能设置头部信息中的Content-Type字段
+* 不能访问响应的头部信息
+* 只支持get/post方法
+
+具体实现如下:
+
+	var xdr = new XDomainRequest();
+	xdr.onload = function() {
+		console.log(xdr.responseText);
+	}
+	xdr.onerror = function() {
+		alert('errors!');
+	}
+	// 与XHR不同的是，XDR的open方法只接收两个参数
+	xdr.open('get', 'http://bignews.boxizen.com/ajax/');
+	xdr.send(null);
+
+**(2) 其他浏览器对CORS的实现**
+
+其他的浏览器通过对XHR对象实现了跨域的支持，不过出现了一些限制：
+
+* 不能通过setRequestHeader()设置自定义头部
+* 不能发送和接收cookie
+* 调用getAllRequestHeaders()总会返回空字符串
+
+**(3) 跨浏览器的CORS**
+
+每个浏览器对CORS的支持程度都不一样，但是所有的浏览器都支持简单的(不带自定义头部信息和凭据的)请求，因此有必要实现一套跨浏览器方案的跨域请求。通过判断XHR中是否包含**"withCredentials"**属性来判断是否支持CORS跨域。
+	
+创建跨浏览器的CORS请求对象:
+
+	function createCORSRequest(method, url) {
+		var xhr = new XMLHttpRequest();
+		if("withCredentials" in xhr) {
+			xhr.open(method, url, true);
+		} else if(window.XDomainRequest) {
+			vxhr = new XDomainRequest();
+			vxhr.open(method, url);
+			xhr = vxhr
+		} else {
+			xhr = null;
+		}
+	}
+
+发送CORS请求:
+
+	var request = createCORSRequest('get', 'http://bignews.boxizen.com/ajax');
+	if(request) {
+		request.onload = function() {
+			console.log(request.responseText);
+		}
+		request.send();
+	}
+
 ### <a id='section_7_4'>**其他跨域技术**</a>
 
+**(1) 图像Ping**
+
+我们知道，一个网页可以加载任何网页中的图像资源，利用这一点可以实现简单的跨域方式，这也是在线广告跟踪浏览量的主要方式。
+
+	var img = new Image();
+	img.onload = function() {
+		alert('done!');		
+	}
+	img.src = 'http://bignews.boxizen.com/statistics';
+
+这种方式有两种主要缺点:
+
+* 只能发送Get请求
+* 不能获得服务器端响应的文本信息
+
+**(2) JSONP**
+
+ 它由两部分组成：**回调函数**和**json数据**，格式看起来是这样的: 
+
+ **callback({"name": "boxizen"})**
+
+	
+	function handleReponse(response) {
+		alert('name:' + response.name);
+	}
+
+	var script = document.createElement('script');
+	script.src = 'http://bignews.boxizen.com/jsonp';
+	document.body.insertBefore(script, document.body.firstChild);
+
+使用JSONP一个最大的优点是可以访问服务器端的响应，支持浏览器端和服务器端的双向通信。而它的缺点也是显而易见的:
+
+* JSONP是从其他域中加载代码执行，如果其他域不安全，可能会在响应中夹带一些恶意代码，因此在使用不是你自己运维的web服务时，一定要保证它安全可靠。
+* 确定JSONP请求是否失败并不容易。
 
 <script type='text/javascript'>
 	$(function() {		
