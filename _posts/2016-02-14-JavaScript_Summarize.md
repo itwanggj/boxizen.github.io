@@ -1431,7 +1431,28 @@ HTML5的应用缓存(application cache),简称为appcache，是专门为开发�
 
 	<html manifest="/offline.manifest">
 
+此外JavaScript中还提供了**applicationCache**的对象对离线资源进行操作和管理，此处略去。
+
+
 ### <a id='section_8_3'>**客户端存储**</a>
+
+随着WebApp的出现，产生了对能够直接在客户端上存储用户信息能力的要求。
+
+**(1) Cookie**
+
+Cookie最初是在客户端存储会话信息的。
+
+**(2) IE用户数据**
+
+**(3) Web存储机制**
+
+* sessionStorage对象
+
+* globalStorage对象
+
+* localStorage对象
+
+**(4) IndexedDB**
 
 <script type='text/javascript'>
 	$(function() {		
