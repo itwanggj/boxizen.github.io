@@ -14,4 +14,4 @@ id: 2016022901
 
 JavaScript**事件驱动**、**非阻塞IO**等的特性使它成为了成为了Node的首选宿主语言，而也正因为如此，JavaScript成为了可以在前后端游离的编程语言，这使得前端工程师能更好地向全栈方向迈进，同时也大大降低了前后端工作切换时所需的上下文交换代价。
 
-<a href='/img/posts/nodejs/node-intro.png' target='_blank'><img src="/img/posts/nodejs/node-intro.png" alt="node简介" /></a>
+<a href='/img/posts/nodejs/node-intro.png' target='_blank'><img src="/img/posts/nodejs/intro.png" alt="node简介" /></a>
