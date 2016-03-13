@@ -1,6 +1,6 @@
 ---
 layout : post
-title : ECMAScript6学习笔记
+title : ECMAScript6 学习笔记
 category : 前端
 tags : 前端 ES6
 id: 2015120101

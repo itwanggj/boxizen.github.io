@@ -1,6 +1,6 @@
 ---
 layout : post
-title : 《图解HTTP》学习笔记
+title : 图解HTTP 学习笔记
 category : http
 tags : http
 id: 2015122501
