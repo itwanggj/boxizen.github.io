@@ -449,6 +449,23 @@ JS中使用引用计数法以及标记清除法对内存进行管理。
 
 ajax通过设置 withCredentials: true / Access-Control-Allow-credentials: true 允许携带cookie访问。
 
+	var xhr = null;
+	if(window.XMLHttpRequest) {
+		xhr = new XMLHttpRequest();
+	} else if(window.ActiveXObject) {
+		xhr = new ActiveXObject('Microsoft.XMLHTTP');
+	} else [
+		xhr = null;
+	]
+	if(xhr) {
+		xhr.open('GET', 'http://xxx.xxx.com/');
+		xhr.onreadstatechange = function() {
+			if(xhr.readystate == 4 && xhr.status == 200) {
+				console.log(xhr.responseText);
+			}
+		}
+	}
+
 ## <a id='section_2' class='chapter'>重构相关</a>
 
 ### <a id='section_2_1'>一、BFC</a>
