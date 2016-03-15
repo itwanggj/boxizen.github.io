@@ -420,7 +420,30 @@ JS中使用引用计数法以及标记清除法对内存进行管理。
 
 **cookie**
 
+	// 设置cookie
+	function setCookie(name, value, expiredays) {
+		var ExpireDate = new Date();
+		ExpireDate.setTime(ExpireDate.getTime() + expiredays * 24 * 3600 * 1000);
+		document.cookie = name + '=' + escape(value) +'; expires=' + ExpireDate.toGMTString();
+	}
 
+	// 读取cookie
+	function getCookie(name) {
+		var begin = document.cookie.indexOf(name+'=');
+		if(begin != -1) {
+			begin = begin + name.length + 1;
+			var end = document.cookie.indexOf(';', begin);
+			return unscape(document.cookie.substring(begin, end));
+		}
+		return null;
+	}
+
+	// 删除cookie
+	function delCookie(name) {
+		var ExpireDate = new Date();
+		ExpireDate.setTime(ExpireDate.getTime() - 1);
+		document.cookie = name + '=' +'; expires=' + ExpireDate.toGMTString();
+	}
 
 **ajax**
 
