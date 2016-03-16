@@ -369,13 +369,50 @@ JS中最流行的继承方式。
 
 通过设置Access-Control-Allow-Origin: * 允许资源跨域访问。
 
-**window.name**
+**iframe+window.name**
 
 通过把信息传至window.name中，再重定向location返回到相同域下实现跨域资源访问。
 
-**document.domain**
+**iframe+document.domain**
 
 子域名不同的两个站点可以通过document.domain设置为相同的父域以实现跨域资源访问。
+
+**iframe+hash**
+
+	// a.html
+	function startRequest() {
+		var iframe = document.createElement('iframe');
+		iframe.src = 'b.html#message';
+		iframe.style.display = 'none';
+		document.body.appendChild(iframe);
+	}
+	function checkHash() {
+		var data = location.hash ? location.hash.substring(1) : null;
+		console.log(data);
+	}
+	setInterval(checkHash, 1000);
+
+	// b.html
+	switch(location.hash) {
+		case 'message': 
+			callback(message);
+			break;
+		....
+	}
+	function callback(msg) {
+		var iframe = document.createElement('iframe');
+		var data = 'xxxxx';
+		iframe.src = 'c.html#' + data;
+		iframe.style.display = 'none';
+		document.body.appendChild(iframe);
+	}
+
+	// c.html
+	window.onload = function() {
+		var data = location.hash ? location.hash.substring(1) : null;
+		parent.parent.hash = data;
+	}
+
 
 **postMessage**
 	
@@ -390,6 +427,14 @@ JS中最流行的继承方式。
 		}
 	});
 
+**flash跨域**
+
+crossdomain.xml 
+
+	<?xml version="1.0"?>
+	<cross-domain-policy>
+  		<allow-access-from domain="*" />
+	</cross-domain-policy>
 
 ### <a id='section_1_5'>五、性能优化</a>
 
