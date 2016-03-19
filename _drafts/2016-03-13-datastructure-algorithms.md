@@ -271,3 +271,199 @@ push()表示在数组尾插入元素, unshift()表示在数组头插入元素
       }
       return this.dataStore.splice(i, 1);
     }
+    
+    
+## 五、链表
+
+### 单向链表实现
+    
+    // 节点对象
+    function Node(element) {
+      this.element = element;
+      this.next = null;
+    }
+    // 链表对象
+    function List() {
+      this.head = new Node('head');
+    }
+    // 查找节点
+    List.prototype.find = function(item) {
+      var curNode = this.head;
+      while(curNode.element != item) {
+        curNode = curNode.next;
+      }
+      return curNode;
+    }
+    // 插入节点
+    List.prototype.insert = function(newElement, item) {
+      var newNode = new Node(newElement);
+      var curNode = this.find(item);
+      newNode.next = curNode.next;
+      curNode.next = newNode;
+    }
+    // 显示链表
+    List.prototype.display = function() {
+      var curNode = this.head;
+      while(curNode.next) {
+        console.log(curNode.element);
+        curNode = curNode.next;
+      }
+    }
+    // 上一个节点
+    List.prototype.previous = function(item) {
+      var curNode = this.head;
+      while(curNode.next && (curNode.next.item!=item)) {
+        curNode = curNode.next;
+      }
+      return curNode;
+    }
+    // 删除节点
+    List.prototype.remove = function(item) {
+      var prevNode = this.previous(item);
+      if(prevNode.next) {
+        prevNode.next = prevNode.next.next;  
+      }
+    }
+    
+### 双向/循环链表
+
+此处略去....
+
+## 六、字典
+
+### 字典实现
+
+JavaScript中使用数组(因为要排序)实现Dictionary类
+    
+    // 构造函数
+    function Dictionary() {
+      this.datastore = [];
+    }
+    // 添加方法
+    Dictionary.prototype.add = function(key, value) {
+      this.datastore[key] = value;
+    }
+    // 查找方法
+    Dictionary.prototype.find = function(key {
+      return this.datastore[key];
+    }
+    // 删除方法
+    Dictionary.prototype.remove = function(key) {
+      delete this.datastore[key];
+    }
+    // 遍历方法
+    Dictionary.prototype.showAll = function() {
+      for(var key in Object.keys(this.datastore)) {
+        console.log(key + '->' + this.datastore[key]);
+      }
+    }
+    
+### 排序功能
+
+    Dictionary.prototype.showAll = function() {
+      for(var key in Object.keys(this.datastore).sort()) {
+        console.log(key + '->' + this.datastore[key]);
+      }
+    }
+    
+## 七、散列
+
+散列是一种常用的数据存储技术，散列后的数据可以快速地插入或取用。散列使用的数据结构叫做散列表。
+
+### 字符串HashTable类
+
+    function HashTable() {
+      this.table = new Array(137);
+    }
+    
+    HashTable.prototype.put = function(data) {
+      var pos = this.simpleHash(data);
+      this.table[pos] = data;
+    }
+    
+    // 散列函数
+    HashTable.prototype.simpleHash = function(data) {
+      var total = 0;
+      for(var i = 0; i < data.length; i++) {
+        // 返回ASCII码值
+        total += data.charCodeAt(i);
+      }
+      return total % this.table.length;
+    }
+    
+    HashTable.prototype.showDistro = function() {
+      var n = 0;
+      for(var i = 0; i < this.table.length; i++) {
+        if(typeof this.table[i] != 'undefined') {
+          console.log(this.table[i]);
+        }
+      }
+    }
+
+### 碰撞处理
+
+开链法&&线性探测法
+
+## 八、集合
+
+### 定义
+
+    function Set() {
+      this.dataStore = []; 
+    }
+    
+    Set.prototype.add = function(data) {
+      if(this.dataStore.indexOf(data) < 0 ) {
+        this.dataStore.push(data);
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+    Set.prototype.remove = function(data) {
+      var pos = this.dataStore.indexOf(data);
+      if(post > -1) {
+        this.dataStore.splice(pos, 1);
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+    Set.prototype.show = function() {
+      return this.dataStore;
+    }
+    
+### 更多操作
+  
+    // 包含
+    Set.prototype.contains = function(data) {
+      if(this.dataStore.indexOf(data) > -1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    // 合并
+    Set.prototype.unio = function(set) {
+      var tmpSet = new Set();
+      for(var i = 0; i < this.dataStore.length; i++) {
+        tmpSet.add(this.dataStore[i]);
+      }
+      for(var i = 0; i < set.dataStore.length; i++) {
+        if(!tmpSet.contains(set.dataStore[i])) {
+          tmpSet.add(set.dataStore[i]);
+        }
+      }
+    }
+    // 交集
+    Set.prototype.intersect = function(set) {
+      var tmpSet = new Set();
+      for(var i = 0; i < this.dataStore.length; i++) {
+        if(set.contains(this.dataStore[i])) {
+          tmpSet.add(this.dataStore[i]);
+        }
+      }
+      return tmpSet;
+    }
