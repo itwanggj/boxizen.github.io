@@ -467,3 +467,153 @@ JavaScript中使用数组(因为要排序)实现Dictionary类
       }
       return tmpSet;
     }
+    
+## 九、二叉树与二叉排序树
+
+### 基本定义
+
+    // Node
+    function Node(data, left, right) {
+      this.data = data;
+      this.left = left;
+      this.right = right;
+    }
+    // show方法
+    Node.prototype.show = function() {
+      return this.data;
+    }
+    // BST
+    function BST() {
+      this.root = null;
+    }
+    BST.prototype.insert = function(data) {
+      var n = new Node(data, null, null);
+      if(this.root == null) {
+        this.root = n;
+      } else {
+        var current = this.root;
+        var parent;
+        while(true) {
+          parent = current;
+          if(data < current.data) {
+            current = current.left;
+            if(current == null) {
+              parent.left = n;
+              break;
+            } 
+          } else {
+            current = current.right;
+            if(current == null) {
+              parent.right = n;
+              break;
+            }
+          }
+        }
+      }
+    }
+    
+### 遍历二叉排序树
+
+中序遍历
+
+    BST.prototype.inOrder = function(node) {
+      if(node != null) {
+        this.inorder(node.left);
+        console.log(node.show());
+        this.inorder(node.right);
+      }
+    }
+    
+先序遍历
+
+    BST.prototype.preOrder = function(node) {
+      if(node != null) {
+        console.log(node);
+        this.inorder(node.left);
+        this.inorder(node.right);
+      }      
+    }
+    
+后序遍历
+
+    BST.prototype.postOrder = function(node) {
+      if(node != null) {
+        this.order(node.left);
+        this.order(node.right);
+        console.log(node);
+      }
+    }
+
+### 二叉排序树上查找
+
+查找最小值
+
+    BST.prototype.getMin = function() {
+      var current = this.root;
+      while(current) {
+        current = current.left;
+      }
+      return current.data;
+    }
+    
+查找最大值
+
+    BST.prototype.getMax = function() {
+      var current = this.root;
+      while(current) {
+        current = current.right;
+      }
+      return current.data;
+    }
+    
+查找给定值
+
+    BST.prototype.find = function(data) {
+      var current = this.root;
+      while(current) {
+        if(current.data == data) {
+          return current;
+        } else if(current.data > data) {
+          current = current.left;
+        } else {
+          current = current.right;
+        }
+      }
+      return null;
+    }
+    
+### 删除节点
+
+    BST.prototype.remove = function(data) {
+      root = this.removeNode(this.root, data);
+    }
+    
+    BST.prototype.removeNode = function(node, data) {
+      if(node == null) {
+        return null;
+      }
+      if(data == node.data) {
+        // 没有子节点
+        if(node.left == null & node.right == null) {
+          return null;
+        } 
+        // 没有左节点
+        if(node.left == null) {
+          return node.right;
+        }
+        // 没有右节点
+        if(node.right == null) {
+          return node.left;
+        }
+        // 有两个子节点
+        var tempNode = getSmallest(node.right);
+        node.data = tempNode.data;
+        node.right = removeNode(node.right, tempNode.data);           return node;
+      } else if(data < node.data) {
+        node.left = this.removeNode(node.left, data);
+        return node;
+      } else {
+        node.right = this.removeNode(node.right, data);
+        return node;
+      }
+    }
