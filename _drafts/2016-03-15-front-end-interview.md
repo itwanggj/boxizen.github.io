@@ -474,15 +474,15 @@ JS中使用引用计数法以及标记清除法对内存进行管理。
 函数节流的主要思路是，通过一个定时器，阻断连续重复的函数调用
 
 	var processor = {
-		timeoutId = null,
+		timer = null,
 
 		perform: function() {
 			// 要执行的代码
 		},
 
 		process: function() {
-			clearTimeout(this.timeoutId);
-			this.timeoutId = setTimeout(function() {
+			clearTimeout(this.timer);
+			this.timer = setTimeout(function() {
 				processor.perform();
 			}, 100);
 		}
