@@ -78,7 +78,10 @@ id: 2016031501
 				<a href="#section_1_6">内存管理</a>				
 			</li>
 			<li>
-				<a href="#section_1_7">其它</a>				
+				<a href="#section_1_7">函数节流</a>				
+			</li>
+			<li>
+				<a href="#section_1_8">其它</a>				
 			</li>
 		</ul>
 	</li>
@@ -461,7 +464,43 @@ crossdomain.xml
 JS中使用引用计数法以及标记清除法对内存进行管理。
 
 
-### <a id='section_1_7'>七、其它</a>
+### <a id='section_1_7'>七、函数节流</a>
+
+某些场景下，由于事件频繁触发，因而执行频发的DOM操作或者资源加载的行为，导致UI停顿甚至浏览器奔溃。如:
+
+* window对象的resize、scroll事件
+* 拖拽鼠标的mousemove事件
+
+函数节流的主要思路是，通过一个定时器，阻断连续重复的函数调用
+
+	var processor = {
+		timeoutId = null,
+
+		perform: function() {
+			// 要执行的代码
+		},
+
+		process: function() {
+			clearTimeout(this.timeoutId);
+			this.timeoutId = setTimeout(function() {
+				processor.perform();
+			}, 100);
+		}
+	}
+
+	function throttle(fn, delay) {
+		var timer = null;
+		return function() {
+			var context = this, arg = arguments;
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+				fn.apply(context, args);
+			}, delay);
+		}
+	}
+
+
+### <a id='section_1_8'>八、其它</a>
 
 **cookie**
 
