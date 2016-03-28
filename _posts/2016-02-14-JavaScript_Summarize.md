@@ -1454,6 +1454,7 @@ Cookie最初是在客户端存储会话信息的。
 
 **(4) IndexedDB**
 
+
 <script type='text/javascript'>
 	$(function() {		
 		/* 章节数量 */ 

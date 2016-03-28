@@ -538,9 +538,9 @@ ajax通过设置 withCredentials: true / Access-Control-Allow-credentials: true 
 		xhr = new XMLHttpRequest();
 	} else if(window.ActiveXObject) {
 		xhr = new ActiveXObject('Microsoft.XMLHTTP');
-	} else [
+	} else {
 		xhr = null;
-	]
+	}
 	if(xhr) {
 		xhr.open('GET', 'http://xxx.xxx.com/');
 		xhr.onreadstatechange = function() {
