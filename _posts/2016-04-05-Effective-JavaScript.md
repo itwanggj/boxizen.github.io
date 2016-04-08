@@ -8,6 +8,20 @@ id: 2016040501
 
 > 汇总《Effective JavaScript》68个有效方法。
 
+<style>
+	table {
+		width: 100%;
+		border: 1px solid #dddddd;
+		border-collapse: collapse;
+		margin-bottom: 20px;
+	}
+	th, td {
+		border: 1px solid #dddddd;
+		padding: 5px;
+		font-size: 0.8rem;
+	}	
+</style>
+
 ## JavaScript特性
 
 ### **第1条: JavaScript版本**
@@ -96,7 +110,16 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 
 当参数类型不同时，＝＝运算符应用了一套难以理解的隐式强制类型转换规则，如下所示:
 
+
 |   参数类型1    |  参数类型2   |  强制转换 |
 | :-----------: | :-----------:  | :-------: |
+| null| undefined| 不转换，总是返回true|
+| null或undefined | 其他任何非null或undefined的类型 | 不转换，总是返回false |
+| 原始类型: string、number或boolean | Date对象 | 原始类型转换为数字；Date对象转换为原始类型(优先尝试toString，再尝试valueOf) |
+| 原始类型: string、number或boolean | 非Date对象 | 原始类型转换为数字；将非Date对象转换为原始类型(优先尝试valueOf，再尝试toString) |
+| 原始类型: string、number或boolean | 原始类型: string、number或boolean | 将原始类型转换为数字 |
+
+==运算符应用的转换规则难以理解，在比较不同类型的值时，可使用显示强制转换使程序的行为更为清晰。
+
 
 
