@@ -92,7 +92,9 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 	'hello'.someProperty = 17;
 	'hello'.someProperty; // undefined;
 
+### **第5条: 避免对混合类型使用==运算符**
 
+当参数类型不同时，＝＝运算符应用了一套难以理解的隐式强制类型转换规则，如下所示:
 
 
 
