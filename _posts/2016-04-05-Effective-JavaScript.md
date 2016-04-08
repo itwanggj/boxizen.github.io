@@ -31,4 +31,33 @@ ES5引入了一种版本控制的考量－严格模式(strict mode)，用于禁�
 
 ### 第3条: 隐式的强制转换
 
-JavaScript对类型错误出奇宽容，许多在其他动态类型语言中的表达式被认为是错误的，而在JavaScript中却可以正确地运行。
+JavaScript对类型错误出奇地/宽容，许多在其他动态类型语言中的表达式被认为是错误的，而在JavaScript中却可以正确地运行。
+如算术运算符 -、 *、 / 和 ％ 在计算前会尝试将其参数转换为数字。
+	
+	// 判断是否为NaN
+	function isReallyNaN(x) {
+		return x !== x;
+	}
+
+
+JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其他所有的值均为真值。
+
+	// 此函数忽略任何为假值的参数
+	function point(x, y) {
+		if(!x) {
+			x = 320;
+		}
+		if(!y) {
+			y = 240;
+		}
+		return {x: x, y: y};
+	}
+
+检查参数是否为undefined更为严格的方式是使用typeof或者和undefined比较
+
+	// typeof判断
+	if(typeof x === 'undefined') {...}
+	
+	// 和undefined比较
+	if(x === undefined) {...}
+
