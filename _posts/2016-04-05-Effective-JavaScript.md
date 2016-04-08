@@ -10,7 +10,7 @@ id: 2016040501
 
 ## JavaScript特性
 
-### 第1条: JavaScript版本
+### **第1条: JavaScript版本**
 
 JavaScript在1997年正式成为国际标准(ECMAScript)，至今共经历了多个版本，如1999年定稿的ES3、2009年发布的ES5和2015年确定的ES6等，不同平台上支持的版本有差异，因此确定当前运行环境所支持的ES版本至关重要。
 
@@ -21,7 +21,7 @@ ES5引入了一种版本控制的考量－严格模式(strict mode)，用于禁�
 		// 执行函数代码
 	}
 
-### 第2条: JavaScript浮点数
+### **第2条: JavaScript浮点数**
 
 不同于其他编程语言，JavaScript的数值型数据类型只有一种：双精度浮点数(double－由IEEE754标准制定的64位编码数字，可以表示高达53位精度的整数)，对于浮点数的运算应该时刻保持警惕，它们的运算并不精确，如:
 	
@@ -29,7 +29,7 @@ ES5引入了一种版本控制的考量－严格模式(strict mode)，用于禁�
 
 解决办法是尽可能地采用整数值运算，因为整数在表示时不需要摄入。
 
-### 第3条: 隐式的强制转换
+### **第3条: 隐式的强制转换**
 
 JavaScript对类型错误出奇地/宽容，许多在其他动态类型语言中的表达式被认为是错误的，而在JavaScript中却可以正确地运行。
 如算术运算符 -、 *、 / 和 ％ 在计算前会尝试将其参数转换为数字。
@@ -39,6 +39,18 @@ JavaScript对类型错误出奇地/宽容，许多在其他动态类型语言中
 		return x !== x;
 	}
 
+
+当一个对象存在toString()和valueOf()方法时，在执行+运算时默认调用的是valueOf()方法。
+
+	var obj = {
+		toString: function() {
+			return 'string method';
+		},
+		valueOf: function() {
+			return 0;
+		}
+	}
+	console.log('obj: ' + obj); // obj: 0
 
 JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其他所有的值均为真值。
 
@@ -60,4 +72,13 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 	
 	// 和undefined比较
 	if(x === undefined) {...}
+
+### **第4条: 原始类型优于封装对象**
+
+除了对象以外，JavaScript有5个原始值类型：布尔值、数字、字符串、null和undefined。
+
+* 当作相等比较时，原始类型的封装对象与其原始值行为不一样。
+* 获取和设置原始类型值的属性会隐式地创建封装对象。
+
+
 
