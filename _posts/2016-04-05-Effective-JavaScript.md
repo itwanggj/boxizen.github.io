@@ -129,3 +129,6 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 
  在return、throw、break、continue、++或--的参数之前不能换行。
 
+### **第7条: 视字符串为16位的代码单元序列**
+
+略
