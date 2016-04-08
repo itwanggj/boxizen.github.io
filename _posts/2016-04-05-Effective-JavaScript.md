@@ -77,8 +77,22 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 
 除了对象以外，JavaScript有5个原始值类型：布尔值、数字、字符串、null和undefined。
 
-* 当作相等比较时，原始类型的封装对象与其原始值行为不一样。
-* 获取和设置原始类型值的属性会隐式地创建封装对象。
+当作相等比较时，原始类型的封装对象与其原始值行为不一样。
+
+	var s1 = new String('hello');
+	var s2 = new String('hello');
+	s1 === s2; // false
+
+	var s3 = 'hello';
+	var s4 = 'hello';
+	s3 === s4; // true
+
+获取和设置原始类型值的属性会隐式地创建封装对象，因此对原始类型设置属性是没有意义的。
+
+	'hello'.someProperty = 17;
+	'hello'.someProperty; // undefined;
+
+
 
 
 
