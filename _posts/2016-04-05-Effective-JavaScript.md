@@ -22,7 +22,7 @@ id: 2016040501
 	}	
 </style>
 
-## JavaScript特性
+## 一、JavaScript特性
 
 ### **第1条: JavaScript版本**
 
@@ -132,7 +132,7 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 ### **第7条: 视字符串为16位的代码单元序列**
 略
 
-## 变量作用域
+## 二、变量作用域
 
 ### **第8、9条: 尽量少用全局对象，始终声明局部变量**
 
@@ -140,4 +140,27 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 
 因此应该尽可能避免声明全局变量，转而使用局部变量取代。
 
+### **第10条: 避免使用with**
 
+程序经常需要对单个对象依次调用一系列方法，**with**语句的动机在于方便地避免对对象的重复引用，而这种方便却是以不可靠和低效率为代价的。
+
+在with语句中使用某变量时，虽然会在with对象的作用域中查找是否存在该变量，如果存在，则使用with对象中的变量，否则会在上一层作用域中查找该变量，这种做法导致了变量容易混淆和查找效率低两种后果。
+
+因此应该尽可能避免使用with语句，可通过**使用简单的变量名代替重复访问的对象**和**显示绑定局部变量到对象属性上**两种方式取代with语句。
+
+**变量名代替重复访问的对象:**
+
+	function status(info) {
+		var w = new Widget();
+		w.setBackground('blue');
+		w.setForeground('white');
+		w.addText('status:' + info);
+		w.show();
+	}
+
+**显示绑定局部变量到对象属性上:**
+
+	function f(x, y) {
+		var min = Math.min, round = Math.round, sqrt = Math.sqrt;
+		return min(round(x), sqrt(y));
+	}
