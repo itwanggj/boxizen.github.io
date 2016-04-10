@@ -244,4 +244,8 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 		return result;
 	}
 	var w = wrapElements([10,11,12,13,43]);
-	w[0];
+	w[0]; // 10
+
+### **第14条: 当心命名函数表达式笨拙的作用域**
+
+	
