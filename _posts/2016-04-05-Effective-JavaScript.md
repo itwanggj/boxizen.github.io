@@ -212,3 +212,22 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 	b.set(98.6);
 	b.get(); // 98.6
 	b.type(); // 'number'
+
+### **第12条: 理解变量声明提升**
+
+在代码块中的变量声明会被隐式地提升到封闭函数的顶部，我们称之为**变量提升**。
+
+需要注意的是JavaScript没有块级作用域，但其中一个例外是**try-catch**语句:
+
+	function test() {
+		var x = 'var', result = [];
+		result.push(x);
+		try{
+			throw 'exception';
+		} catch(x) {
+			x = 'catch';
+		}
+		result.push(x);
+		return result;
+	}
+	test(); // ['var', 'var']
