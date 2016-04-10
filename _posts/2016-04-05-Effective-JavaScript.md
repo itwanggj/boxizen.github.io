@@ -164,3 +164,51 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 		var min = Math.min, round = Math.round, sqrt = Math.sqrt;
 		return min(round(x), sqrt(y));
 	}
+
+### **第11条: 熟练使用闭包**
+
+闭包是JavaScript中的特性，有如下三个特点：
+
+**1. 允许引用在当前函数外定义的变量:**
+
+	function makeSandwich() {
+		var magicIngredient = 'peanut butter';
+		function make(filling) {
+			return magicIngredient + ' and ' + filling;
+		}
+		return make('jelly');
+	}
+
+**2. 即使外部函数已经返回，当前函数仍然可以引用在外部函数所定义的变量:**	
+
+	function sandwichMaker() {
+		var magicIngredient = 'peanut butter';
+		function make(filling) {
+			return magicIngredient + ' and ' + filling;
+		}
+		return make;
+	}
+	var f = sandwichMaker();
+	f('jelly');
+
+**3. 闭包可以更新外部变量的值:**	
+
+	function box() {
+		var val = undefined;
+		return {
+			set: function(newVal) {
+				val = newVal;
+			},
+			get: function() {
+				return val;
+			},
+			type: function() {
+				return typeof val;
+			}
+		}
+	}
+	var b = box();
+	b.type(); // undefined;
+	b.set(98.6);
+	b.get(); // 98.6
+	b.type(); // 'number'
