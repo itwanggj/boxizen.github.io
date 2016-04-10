@@ -231,3 +231,17 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 		return result;
 	}
 	test(); // ['var', 'var']
+
+### **第13条: 使用立即调用的函数表达式创建局部作用域**
+
+	function wrapElements(a) {
+		var result = [], i, n;
+		for(i = 0, n = a.length; i < n; i++) {
+			result[i] = (function(i) {
+				return a[i];
+			})(i);
+		}
+		return result;
+	}
+	var w = wrapElements([10,11,12,13,43]);
+	w[0];
