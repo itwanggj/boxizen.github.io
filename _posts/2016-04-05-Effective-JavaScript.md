@@ -276,3 +276,5 @@ eval函数容易污染调用者的作用域，如下:
 
 	test('var y = "local";'); // global
 	test('var z = "local";'); // global
+
+### **第17条: 间接调用eval函数优于直接调用**
