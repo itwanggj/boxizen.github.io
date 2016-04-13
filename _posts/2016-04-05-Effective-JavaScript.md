@@ -251,4 +251,28 @@ JavaScript中有7个假值: false、0、－0、""、NaN、null和undefined，其
 ### **第15条: 当心局部块函数声明笨拙的作用域**
 
 ### **第16条: 避免使用eval创建局部变量**
-	
+
+eval函数容易污染调用者的作用域，如下:
+
+	var y = 'global';
+	function test(x) {
+		if(x) {
+			eval('var y = "local";'); // 动态绑定
+		}
+		return y;
+	}
+	test(true); // local
+	test(false); // global
+
+保证eval函数不影响外部作用域的一个方法是在一个明确的嵌套作用域中运行它，如:
+
+	var y = 'global';
+	function test(src) {
+		(function(){
+			eval(src);
+		})();
+		return y;
+	}
+
+	test('var y = "local";'); // global
+	test('var z = "local";'); // global
