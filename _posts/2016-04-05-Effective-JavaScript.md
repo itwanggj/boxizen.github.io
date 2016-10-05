@@ -283,3 +283,83 @@ eval函数容易污染调用者的作用域，如下:
 
 ### **第18条: 函数调用、方法调用及构造函数调用区别**
 
+有别于其他面向对象编程语言，JavaScript 将函数调用、方法调用以及构造函数调用看作是单个构造对象的三种不同的使用模式。
+
+### **第19条: 熟练掌握高阶函数**
+
+所谓高阶函数，即是使用函数作为**参数**或**返回值**的函数，常常用于数组的方法中。
+
+	var names = ["ABC", "dEf", "GHI"];
+	var lower = names.map(function(name) {
+		return name.toLowerCase();
+	})
+	lower; // ['abc', 'def', 'ghi']
+
+此外，高阶函数还可用于重构并整合一些相同的模式，如：
+
+	function alphabet() {
+		var aIndex = "a".charCodeAt(0);
+		var alphabet = "";
+		for(var i = 0; i < 26; i++) {
+			alphabet += String.fromCharCode(aIndex + i);
+		}
+	}
+	
+	function digits() {
+		var digits = "";
+		for(var i = 0; i < 10; i++) {
+			digits += i;
+		}
+	}
+
+	function random() {
+		var random = "";
+		for(var i = 0; i < 8; i++) {
+			random += String.fromCharCode(Math.floor(Math.random() * 26) + aIndex);
+		}
+	}
+	
+上面两个函数创建了不同的字符串，但是他们都有着共同的逻辑，可以通过编写一个高阶函数提取出共用的部分：
+
+	function buildString(n, callback) {
+		var result = '';
+		for(var i = 0; i < n; i++) {
+			result += callback(i);
+		}
+		return result;
+	}
+
+于是上面的三个例子可以简化为:
+
+	var alphabet = buildString(26, function(i) {
+		return String.fromCharCode(alIndex + i);
+	})
+
+	var digits = buildString(10, function(i) {
+		return i;
+	})
+
+	var random = buildString(8, function(i) {
+		String.fromCharCode(Math.floor(Math.random() * 26)+ aIndex);
+	})
+
+### **第20条: 使用call调用方法**
+
+在很多业务场景下，开发者常常需要自定义对象作为某个函数的调用者，首先想到的方法可能是将该函数作为一个新的属性添加到接受者对象中:
+
+	obj.temporary = f;
+	var result = obj.temporary(arg1, arg2, arg3);
+	delete obj.temporay;
+
+然而这种方法看上去非常别扭而危险，一般而言这种做法是一种不好的实践，可通过 call 解决这样的问题:
+
+	f.call(obj, arg1, arg2, arg3);
+
+### **第21条: 使用apply调用方法**
+
+apply 与 call 类似，区别在于 apply 接收的参数对象为数组对象:
+
+	var scores = getAllScores();
+	average.apply(null, scores);
+
+### **第22-24条: arguments对象**
