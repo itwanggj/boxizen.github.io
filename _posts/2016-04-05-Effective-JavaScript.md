@@ -367,3 +367,27 @@ apply 与 call 类似，区别在于 apply 接收的参数对象为数组对象:
 隐式的 arguments 对象可实现可变参数的函数，虽然 arguments 看起来像一个数组，但它并不是一个真正的数组，可通过下面的方法将它转化为真正的数组:
 
 	var args = [].slice.call(arguments, 2);
+
+### **第25-26条: 使用bind方法**
+
+	var buffer = {
+		entries: [],
+		add: function(s) {
+			this.entries.push(s);
+		},
+		concat: function() {
+			return this.entries.join('');
+		}
+	};
+
+	buffer.add.bind(buffer); //绑定buffer对象为函数接受者
+
+### **第27条: 使用闭包封装代码**
+
+### **第28条: 不要信赖函数对象的toString方法**
+
+通常情况下，应该避免使用函数对象的 toString 方法。
+
+### **第29条: 避免使用非标准的栈检查属性**
+
+避免使用非标准的 arguments.caller 和 arguments.callee 属性
