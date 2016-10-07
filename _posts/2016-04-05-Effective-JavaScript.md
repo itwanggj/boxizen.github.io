@@ -391,3 +391,47 @@ apply 与 call 类似，区别在于 apply 接收的参数对象为数组对象:
 ### **第29条: 避免使用非标准的栈检查属性**
 
 避免使用非标准的 arguments.caller 和 arguments.callee 属性
+
+## 四、对象和原型
+
+### **第30条: 理解prototype、getPrototype和__proto__之间的不同**
+
+* C.prototype 属性是 new C() 创建的对象的原型。
+* Object.getPrototypeOf(obj) 是 ES5 中检索对象原型的标准函数。
+* obj.__proto__ 是检索对象原型的非标准方法。
+* 类是由一个构造函数和一个关联的原型组成的一种设计模式。
+
+### **第31条: 使用getPrototypeOf函数代替__proto__属性**
+
+ES5 引入 Object.getPrototypeOf 函数作为获取对象原型的标准 API，而在此之前大量的 JavaScript 引擎使用 __proto__ 属性达到相同的目的，但由于该属性并不是完全兼容 
+
+### **第32条: 始终不要修改__proto__属性**
+
+* 始终不要修改对象的 __proto__ 属性。
+* 使用 Object.create 函数给新对象设置自定义的原型
+
+### **第33条: 使构造函数与new操作符无关**
+
+### **第34条: 在原型中存储方法**
+
+将方法存储在实例对象中会创建该函数的多个副本，因为每个实例对象都有一份副本，将方法存储于原型中优于存储在实例对象。
+
+### **第35条: 使用闭包存储私有数据**
+
+### **第36条: 只将实例状态存储在实例对象中**
+
+### **第37 this变量的隐式绑定**
+
+	CSVReader.prototype.read = function(str) {
+		var lines = str.trim().split(/\n/);
+		return lines.map(function(line) {
+			return line.split(this.regexp);
+		},this);
+	};
+
+	CSVReader.prototype.read = function(str) {
+		var lines = str.trim().split(/\n/);
+		return lines.map(function(line){
+			return line.split(this.regexp);
+		}.bind(this));
+	}
